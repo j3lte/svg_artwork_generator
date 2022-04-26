@@ -33,7 +33,8 @@ export interface BlockOptions {
     coin04: boolean;
     coin06: boolean;
     coin08: boolean;
-    randge2_4: number;
+    range0_3: number;
+    range2_4: number;
     rotate: number;
     character: string;
 }
@@ -78,7 +79,8 @@ export const generateBlocksObjects = (
                     coin04: coinFlips[3],
                     coin06: coinFlips[4],
                     coin08: coinFlips[5],
-                    randge2_4: random.randRange(2, 4),
+                    range0_3: random.randRange(0, 3),
+                    range2_4: random.randRange(2, 4),
                     rotate: random.choice([0, 90, 180, 270]),
                     character: random.choice(characters)
                 }

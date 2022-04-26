@@ -1,4 +1,4 @@
-import { createClipping, CreatorFunc, drawRect, generateXYCoords } from "./common";
+import { CreatorFunc, drawRect, generateXYCoords } from "./common";
 
 /**
  * Create a block with a quarter circle from one of the corners
@@ -10,29 +10,32 @@ export const generator: CreatorFunc = (drawer, block) => {
     const { size, color, opts } = block;
 
     const group = drawer.group().addClass("qs");
-    const circleGroup = drawer.group();
 
     drawRect(group, block); // BG
 
-    const xOffset = size * (opts.coin ? 1 : 0);
-    const yOffset = size * (opts.coin2 ? 1 : 0);
+    const s = size;
+    const h = size / 2;
+    const bigArc = `A${size},${size} 0 0 1`;
+    const smallArc = `A${h},${h} 0 0 0`;
 
-    // Draw Foreground
-    circleGroup
-        .circle(size * 2)
-        .fill(color.fg)
-        .center(x + xOffset, y + yOffset);
+    const pathsFull = [
+        `M${x},${y} L${x+s},${y} ${bigArc} ${x},${y+s} L${x},${y} z`,       // TOP-LEFT
+        `M${x+s},${y} L${x+s},${y+s} ${bigArc} ${x},${y} L${x+s},${y} z`,   // TOP-RIGHT
+        `M${x+s},${y+s} L${x},${y+s} ${bigArc} ${x+s},${y} L${x+s},${y} z`, // BOTTOM-RIGHT
+        `M${x},${y+s} L${x},${y} ${bigArc} ${x+s},${y+s} L${x},${y+s} z`    // BOTTOM-LEFT
+    ];
 
-    if (opts.coin06) {
-        circleGroup
-            .circle(size)
-            .fill(color.bg)
-            .center(x + xOffset, y + yOffset);
-    }
+    const pathsHalf = [
+        `M${x+h},${y} L${x+s},${y} ${bigArc} ${x},${y+s} L${x},${y+h} ${smallArc} ${x+h},${y} z`,       // TL
+        `M${x+s},${y+h} L${x+s},${y+s} ${bigArc} ${x},${y} L${x+h},${y} ${smallArc} ${x+s},${y+h} z`,   // TR
+        `M${x+h},${y+s} L${x},${y+s} ${bigArc} ${x+s},${y} L${x+s},${y+h} ${smallArc} ${x+h},${y+s} z`, // BR
+        `M${x},${y+h} L${x},${y} ${bigArc} ${x+s},${y+s} L${x+h},${y+s} ${smallArc} ${x},${y+h} z`      // BL
+    ];
 
-    createClipping(drawer, circleGroup, block);
+    const paths = opts.coin ? pathsHalf : pathsFull;
+    const chosen = paths[opts.range0_3];
 
-    group.add(circleGroup);
+    group.path(chosen).fill(color.fg);
 }
 
 export const ID = 'quart';

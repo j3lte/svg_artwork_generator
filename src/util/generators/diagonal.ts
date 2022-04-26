@@ -13,20 +13,11 @@ export const generator: CreatorFunc = (drawer, block) => {
 
         drawRect(group, block); // BG
 
-        // Draw Foreground
-        let polygon;
-        if (opts.coin) {
-            polygon = group.polygon(
-                `${x},${y} ${x},${y + size}, ${x + size},${y}`
-            );
-        } else {
-            polygon = group.polygon(
-                `${x},${y} ${x + size},${y} ${x + size},${y + size}`
-            );
-        }
+        const path = opts.coin ?
+            `${x},${y} ${x},${y + size}, ${x + size},${y}` :
+            `${x},${y} ${x + size},${y} ${x + size},${y + size}`;
 
-        polygon
-            .fill(color.fg)
+        group.polygon(path).fill(color.fg);
 }
 
 export const ID = 'diag';

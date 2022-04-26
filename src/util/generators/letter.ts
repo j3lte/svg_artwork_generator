@@ -1,4 +1,4 @@
-import { createClipping, CreatorFunc, drawRect, generateXYCoords } from "./common";
+import { CreatorFunc, drawRect, generateXYCoords } from "./common";
 
 /**
  * Create box with letters
@@ -35,8 +35,6 @@ export const generator: CreatorFunc = (drawer, block) => {
     } else if (rotate === 270) {
         text.center(x + (size / 2) * 0.9, y + (size / 2) * 0.85); // r = 270
     }
-
-    // createClipping(drawer, group, block);
 }
 
 export const ID = 'let';

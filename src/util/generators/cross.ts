@@ -1,4 +1,4 @@
-import { CreatorFunc, drawRect, generateXYCoords } from "./common";
+import { CreatorFunc, drawRect, generateXYCoords, roundNumber } from "./common";
 
 /**
  * Create a block with a cross in it
@@ -12,19 +12,22 @@ export const generator: CreatorFunc = (drawer, block) => {
     const group = drawer.group().addClass("cr");
     const crossGroup = drawer.group();
 
+    const shortEdge = roundNumber(size / 5);
+    const longEdge = roundNumber(size / 1.5);
+    const half = roundNumber(size / 2);
+
     drawRect(group, block); // BG
 
     // Draw Foreground
     crossGroup
-        .rect(size / 1.5, size / 5)
+        .rect(longEdge, shortEdge)
         .fill(color.fg)
-        .center(x + size / 2, y + size / 2);
+        .center(x + half, y + half);
 
     crossGroup
-        .rect(size / 1.5, size / 5)
+        .rect(shortEdge, longEdge)
         .fill(color.fg)
-        .center(x + size / 2, y + size / 2)
-        .transform({ rotate: 90 });
+        .center(x + half, y + half);
 
     if (opts.coin04) {
         crossGroup.transform({ rotate: 45, origin: "center center" });

@@ -13,7 +13,7 @@ export const generator: CreatorFunc = (drawer, block) => {
 
     drawRect(group, block); // BG
 
-    const size = opts.randge2_4;
+    const size = opts.range2_4;
     const offset = Math.floor(block.size / 10);
     const circleSize = Math.floor(block.size / 10);
     const space = (blockSize - offset * 2 - circleSize) / (size - 1);
