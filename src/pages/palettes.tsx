@@ -1,11 +1,14 @@
 import type { NextPage } from 'next';
-import { AppShell, Badge, Box, Card, Container, Group, ScrollArea, SimpleGrid, Text, Title } from '@mantine/core';
+import { AppShell, Badge, Box, Card, Container, Group, SimpleGrid, Text, Title } from '@mantine/core';
+import { NextSeo } from 'next-seo';
 import { AppHeader } from '@/components/AppHeader';
 import { AppFooter } from '@/components/AppFooter';
 import { PaletteChoice, paletteChoices } from '@/util/palette';
 import { observer } from 'mobx-react';
 import { useStoreContext } from '@/context/StoreContext';
 import { Lock } from 'tabler-icons-react';
+import { websiteTitle } from '@/data/seo';
+
 
 const PaletteCard = observer(({ palette }: { palette: PaletteChoice }) => {
     const store = useStoreContext();
@@ -60,38 +63,43 @@ const PaletteCard = observer(({ palette }: { palette: PaletteChoice }) => {
 const PalettePage: NextPage = () => {
 
     return (
-        <AppShell
-            padding={'sm'}
-            header={<AppHeader />}
-            footer={<AppFooter />}
-            styles={(theme) => ({
-                body: {
-                    paddingTop: 70,
-                    paddingBottom: 60,
-                    height: '100vh'
-                }
-            })}
-        >
-        <Container size={'xl'} sx={{ overflow: 'hidden' }}>
-            <Title order={2}>Available palettes</Title>
-            <Box sx={{ margin: 0 }} pt={10} pb={70}>
-                <SimpleGrid
-                    cols={4}
-                    spacing="lg"
-                    breakpoints={[
-                        { maxWidth: 'md', cols: 3, spacing: 'md' },
-                        { maxWidth: 'sm', cols: 2, spacing: 'sm' },
-                        { maxWidth: 'xs', cols: 2, spacing: 'sm' },
-                    ]}
-                >
-                    {paletteChoices.map(palette => (
-                        <PaletteCard palette={palette} key={palette.value} />
-                    ))}
-                </SimpleGrid>
-            </Box>
-        </Container>
-    </AppShell>
-  )
+        <>
+            <NextSeo
+                title={`Palettes | ${websiteTitle}`}
+            />
+            <AppShell
+                padding={'sm'}
+                header={<AppHeader />}
+                footer={<AppFooter />}
+                styles={(theme) => ({
+                    body: {
+                        paddingTop: 70,
+                        paddingBottom: 60,
+                        height: '100vh'
+                    }
+                })}
+            >
+                <Container size={'xl'} sx={{ overflow: 'hidden' }}>
+                    <Title order={2}>Available palettes</Title>
+                    <Box sx={{ margin: 0 }} pt={10} pb={70}>
+                        <SimpleGrid
+                            cols={4}
+                            spacing="lg"
+                            breakpoints={[
+                                { maxWidth: 'md', cols: 3, spacing: 'md' },
+                                { maxWidth: 'sm', cols: 2, spacing: 'sm' },
+                                { maxWidth: 'xs', cols: 2, spacing: 'sm' },
+                            ]}
+                        >
+                            {paletteChoices.map(palette => (
+                                <PaletteCard palette={palette} key={palette.value} />
+                            ))}
+                        </SimpleGrid>
+                    </Box>
+                </Container>
+            </AppShell>
+        </>
+    )
 }
 
 export default PalettePage

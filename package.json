@@ -27,6 +27,7 @@
     "mobx-react": "^7.3.0",
     "next": "12.1.5",
     "next-pwa": "^5.5.2",
+    "next-seo": "^5.4.0",
     "random-seedable": "^1.0.8",
     "react": "18.0.0",
     "react-dom": "18.0.0",
