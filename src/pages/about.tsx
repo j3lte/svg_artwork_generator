@@ -1,34 +1,16 @@
 import { useMemo } from 'react';
 import type { NextPage } from 'next'
 import { NextSeo } from 'next-seo';
-import { Accordion, AppShell, Container, Space, Text, ThemeIcon, Title, List, Blockquote } from '@mantine/core'
-import { Check, ChevronRight, Clock, Flame, List as ListIcon } from 'tabler-icons-react'
+import { Accordion, AppShell, Container, Space, Text, ThemeIcon, Title, List } from '@mantine/core'
+import { BrandGithub, ChevronRight, Flame, Notebook } from 'tabler-icons-react'
 import { AppHeader } from '@/components/AppHeader'
 import { AppFooter } from '@/components/AppFooter'
 import { ExternalLinkText } from '@/components/ExternalLinkText'
-import { loadedHistory } from '@/util/history'
 
 import techList from '@/data/tech.json';
 import { websiteTitle } from '@/data/seo';
 
 const AboutPage: NextPage = () => {
-
-    const history = useMemo(() => (
-        loadedHistory.map((item) => (
-            <List.Item key={`${item.num}-${item.version}`}>
-                <Blockquote
-                    pt={5} pl={5}
-                    cite={item.date}
-                    icon={<Clock size={24} />}
-                >
-                    Version: {item.version}
-                    <List mt={5} size={'sm'} icon={<Check size={12} />}>
-                        {item.notes?.map((note, index) => (<List.Item key={`${item.num}-${item.version}-${index}`}>{note}</List.Item>))}
-                    </List>
-                </Blockquote>
-            </List.Item>
-        ))
-    ), []);
 
     const listTech = useMemo(() => (
         techList.map(item => (
@@ -57,31 +39,38 @@ const AboutPage: NextPage = () => {
                     <Title order={2}>SVG Artwork Generator</Title>
                     <Text>Inspired by <ExternalLinkText text='this post' link='https://frontend.horse/articles/generative-grids/' /> titled &quot;Creating Generative SVG Grids&quot;, I decided to take the code and create a web app out of it. It features quite a few options that you can configure, go check it out and share your pictures!</Text>
                     <Space h="lg" />
-                    <Text><Text weight={700}>Note:</Text> When you use more rows &amp; columns, it takes longer to generate a picture. Keep it reasonable. It might also break if you set the blocksize too high. More information will be added later</Text>
-                    <Space h="lg" />
                     <Accordion disableIconRotation>
+                        <Accordion.Item
+                            label="Notes & Issues"
+                            icon={
+                                <ThemeIcon color="blue" variant="outline">
+                                    <Notebook size={14} />
+                                </ThemeIcon>
+                            }
+                        >
+                            <Text>- When you use more rows &amp; columns, it takes longer to generate a picture. Reduce the number if it gets too slow.</Text>
+                            <Text>- Downloading a PNG might break if you set the blocksize too high. There are <ExternalLinkText link='https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas#maximum_canvas_size' text='limitations per browser' />. In a future release I might add server-side image generation to circumvent this.</Text>
+                        </Accordion.Item>
+                        <Accordion.Item
+                            label="Open Source"
+                            icon={
+                                <ThemeIcon color="dark" variant="outline">
+                                    <BrandGithub size={14} />
+                                </ThemeIcon>
+                            }
+                        >
+                            <Text>I believe in the power of Open Source. That&apos;s why this project is available on <ExternalLinkText link='https://github.com/j3lte/svg_artwork_generator' text='Github' />. Feel free to play around with the code. If you have great suggestions, please submit them as a Github Issue/Pull Request.</Text>
+                        </Accordion.Item>
                         <Accordion.Item
                             label="Tech"
                             icon={
-                                <ThemeIcon color="red" variant="light">
+                                <ThemeIcon color="red" variant="outline">
                                     <Flame size={14} />
                                 </ThemeIcon>
                             }
                         >
                             <List icon={<ChevronRight size={12} />} spacing={5}>
                                 {listTech}
-                            </List>
-                        </Accordion.Item>
-                        <Accordion.Item
-                            label="Version History"
-                            icon={
-                                <ThemeIcon color="green" variant="light">
-                                    <ListIcon size={14} />
-                                </ThemeIcon>
-                            }
-                        >
-                            <List listStyleType={'none'}>
-                                {history}
                             </List>
                         </Accordion.Item>
                     </Accordion>

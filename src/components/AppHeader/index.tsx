@@ -1,7 +1,6 @@
 import Link from 'next/link'
-import { Header, Title, Image, Stack, Group, ThemeIcon, Text } from "@mantine/core"
+import { Header, Title, Image, Stack, Group, ThemeIcon } from "@mantine/core"
 import { Book, Palette } from 'tabler-icons-react';
-import { latestVersionNum } from '@/util/history';
 
 export const AppHeader = () => {
     return (
@@ -27,7 +26,6 @@ export const AppHeader = () => {
                     </Link>
                 </div>
                 <Group>
-                    <Text size={'xs'}>Ver: {latestVersionNum}</Text>
                     <Link href="/palettes" passHref>
                         <a>
                             <ThemeIcon size="lg" variant="outline" color="dark">
