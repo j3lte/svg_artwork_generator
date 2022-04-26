@@ -6,7 +6,7 @@
     "display_override": ["fullscreen", "minimal-ui"],
     "orientation": "portrait",
     "scope": "/",
-    "start_url": "/",
+    "start_url": "/?utm_source=pwa",
     "name": "SVG Artwork Generator",
     "short_name": "SVG Artwork",
     "description": "Generate SVG Artwork in your browser",
