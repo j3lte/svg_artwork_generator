@@ -1,10 +1,13 @@
 import { DefaultSeoProps } from 'next-seo';
-import { getDeploymentUrl } from '@/util/url';
+import { getDeploymentUrl, hasPublicURL } from '@/util/url';
 import websiteData from './website.json';
 
 const deploymentURL = getDeploymentUrl();
+const hasNextURL = hasPublicURL();
 
 export const defaultSeo: DefaultSeoProps = {
+    dangerouslySetAllPagesToNoFollow: !hasNextURL,
+    dangerouslySetAllPagesToNoIndex: !hasNextURL,
     defaultTitle: websiteData.site_title,
     description: websiteData.site_description,
     additionalMetaTags: [
