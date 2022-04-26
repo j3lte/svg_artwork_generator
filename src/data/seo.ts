@@ -10,11 +10,11 @@ export const defaultSeo: DefaultSeoProps = {
     openGraph: {
         type: 'website',
         locale: 'en_IE',
-        url: process.env.VERCEL_URL,
+        url: websiteData.site_url,
         site_name: websiteData.site_title,
         images: [
             {
-                url: `${process.env.VERCEL_URL}/preview.png`,
+                url: `${websiteData.site_url}preview.png`,
                 width: 1200,
                 height: 800,
                 alt: websiteData.site_title
