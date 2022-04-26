@@ -7,7 +7,7 @@ import { PaletteChoice, paletteChoices } from '@/util/palette';
 import { observer } from 'mobx-react';
 import { useStoreContext } from '@/context/StoreContext';
 import { Lock } from 'tabler-icons-react';
-import { websiteTitle } from '@/data/seo';
+import { websiteTitle } from '@/util/seo';
 
 
 const PaletteCard = observer(({ palette }: { palette: PaletteChoice }) => {

@@ -8,7 +8,7 @@ import { MantineProvider } from '@mantine/core';
 import { StoreProvider } from '@/context/StoreContext';
 import { UIProvider } from '@/context/UIContext';
 import { ArtStore } from '../store';
-import { defaultSeo } from '@/data/seo';
+import { defaultSeo } from '@/util/seo';
 
 const mainArtStore = new ArtStore();
 

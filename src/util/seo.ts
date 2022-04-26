@@ -1,6 +1,6 @@
 import { DefaultSeoProps } from 'next-seo';
 import { getDeploymentUrl, hasPublicURL } from '@/util/url';
-import websiteData from './website.json';
+import websiteData from '@/data/website.json';
 
 const deploymentURL = getDeploymentUrl();
 const hasNextURL = hasPublicURL();

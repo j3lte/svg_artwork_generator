@@ -8,7 +8,7 @@ import { AppFooter } from '@/components/AppFooter'
 import { ExternalLinkText } from '@/components/ExternalLinkText'
 
 import techList from '@/data/tech.json';
-import { websiteTitle } from '@/data/seo';
+import { websiteTitle } from '@/util/seo';
 
 const AboutPage: NextPage = () => {
 
