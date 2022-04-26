@@ -1,0 +1,43 @@
+{
+  "name": "generative-art-creator",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "NODE_ENV=development; next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "clean": "rm -r ./.next && rm ./public/sw.js && rm ./public/workbox*.js",
+    "bs": "yarn build && yarn start"
+  },
+  "dependencies": {
+    "@mantine/core": "^4.1.4",
+    "@mantine/hooks": "^4.1.4",
+    "@mantine/next": "^4.1.4",
+    "@react-hook/size": "^2.1.2",
+    "@svgdotjs/svg.filter.js": "^3.0.8",
+    "@svgdotjs/svg.js": "^3.1.2",
+    "@svgdotjs/svg.panzoom.js": "^2.1.2",
+    "abab": "^2.0.6",
+    "beautiful-react-hooks": "^1.2.0",
+    "colord": "^2.9.2",
+    "localforage": "^1.10.0",
+    "mobx": "^6.5.0",
+    "mobx-persist-store": "^1.0.6",
+    "mobx-react": "^7.3.0",
+    "next": "12.1.5",
+    "next-pwa": "^5.5.2",
+    "random-seedable": "^1.0.8",
+    "react": "18.0.0",
+    "react-dom": "18.0.0",
+    "tabler-icons-react": "^1.46.0"
+  },
+  "devDependencies": {
+    "@types/node": "17.0.25",
+    "@types/react": "18.0.5",
+    "@types/react-dom": "18.0.1",
+    "eslint": "8.13.0",
+    "eslint-config-next": "12.1.5",
+    "typescript": "4.6.3"
+  }
+}

@@ -1,0 +1,6 @@
+[
+    { "id": "next", "title": "Next.JS", "url" : "https://nextjs.org/" },
+    { "id": "mantine", "title": "Mantine", "url" : "https://mantine.dev/" },
+    { "id": "tabler", "title": "Tabler Icons", "url" : "https://tabler-icons.io/" },
+    { "id": "svgjs", "title": "SVG.js", "url" : "https://svgjs.dev/docs/3.0/"}
+]

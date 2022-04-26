@@ -1,0 +1,11 @@
+{
+    "editor.tabSize": 4,
+    "editor.detectIndentation": false,
+    "[css]": {
+        "editor.tabSize": 4
+    },
+    "[typescript]": {
+        "editor.tabSize": 4,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+}

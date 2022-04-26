@@ -1,0 +1,40 @@
+html,
+body {
+    padding: 0;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+        Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+svg.artwork-svg {
+    max-width: 100%;
+    max-height: 100%;
+    aspect-ratio: 1;
+}
+
+svg.artwork-svg {
+    shape-rendering: crispEdges;
+}
+
+svg.artwork-svg * {
+    shape-rendering: crispEdges;
+}
+
+svg.artwork-svg text {
+    pointer-events: none;
+    user-select: none;
+}
+
+svg.artwork-svg .main {
+    cursor: grab;
+    /* filter: drop-shadow(2px 2px 2px rgb(0 0 0 / 0.2)) */
+}
