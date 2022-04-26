@@ -21,5 +21,5 @@ export const getDeploymentUrl = () => {
 }
 
 export const hasPublicURL = () => {
-    return typeof process.env.NEXT_PUBLIC_URL === 'undefined';
+    return typeof process.env.NEXT_PUBLIC_URL !== 'undefined';
 }
