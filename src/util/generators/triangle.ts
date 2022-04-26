@@ -4,7 +4,7 @@ export const generator: CreatorFunc = (drawer, block) => {
     const { x, y } = generateXYCoords(block);
     const { size, color, opts } = block;
 
-    const group = drawer.group().addClass("block-triangle");
+    const group = drawer.group().addClass("tr");
 
     drawRect(group, block);
 
@@ -20,7 +20,6 @@ export const generator: CreatorFunc = (drawer, block) => {
         [mX - (height / Math.sqrt(3)), mY + (height / 3) + offSet],
         [mX , mY - (height * 2/3) + offSet]
     ])
-        .addClass('triangle')
         .fill(color.fg)
         .rotate(opts.rotate);
 

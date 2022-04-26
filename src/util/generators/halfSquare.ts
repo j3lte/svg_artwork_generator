@@ -9,7 +9,7 @@ export const generator: CreatorFunc = (drawer, block) => {
     const { x, y } = generateXYCoords(block);
     const { size, color, opts } = block;
 
-    const group = drawer.group().addClass("block-half-square");
+    const group = drawer.group().addClass("hs");
 
     let halfX = 2;
     let halfY = 2;

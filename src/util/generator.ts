@@ -15,7 +15,7 @@ export interface CreateGeneratorBlockOpts {
     drawer: Svg;
     blocks: Array<Block>;
     generators: generatorKey[];
-    size: { width: number, height: number };
+    size?: { width: number, height: number };
     filters: GeneratorFilters;
 }
 export interface BlockColors {
@@ -90,7 +90,7 @@ export const generateBlocksObjects = (
 
 
 export const generateBlocks = (props : CreateGeneratorBlockOpts): void => {
-    const { drawer, blocks, generators , size, filters } = props;
+    const { drawer, blocks, generators, filters } = props;
     drawer.clear();
 
     const defs = drawer.defs();

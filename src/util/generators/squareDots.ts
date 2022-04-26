@@ -9,7 +9,7 @@ export const generator: CreatorFunc = (drawer, block) => {
     const { x, y } = generateXYCoords(block);
     const { size: blockSize, color, opts } = block;
 
-    const group = drawer.group().addClass('square-block-dots');
+    const group = drawer.group().addClass('sd');
 
     drawRect(group, block); // BG
 

@@ -12,10 +12,12 @@ export const drawRect = (drawer: G | Svg, block: Block, bgColor?: string): Rect 
     const fillColor = bgColor || block.color.bg;
     const { x, y } = generateXYCoords(block);
 
-    return drawer
-        .rect(block.size, block.size)
-        .fill(fillColor)
-        .move(x, y);
+    const rect = drawer.rect(block.size, block.size);
+
+    rect.fill(fillColor);
+    rect.move(x, y);
+
+    return rect;
 }
 
 export const createClipping = (drawer: Svg | G, group: G, block: Block): Rect => {
