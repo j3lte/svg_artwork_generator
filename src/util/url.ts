@@ -8,9 +8,11 @@ export const getURL = () => {
     return url.includes('http') ? url : `https://${url}`;
 };
 
-export const getPublicURL = () => {
+export const getDeploymentUrl = () => {
+    // Automatic Vercel deployment URL.
     if (process.env.NEXT_PUBLIC_VERCEL_URL) {
-        return `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
+      return `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
     }
-    return null;
-}
+    // Assume local development.
+    return 'http://localhost:3000'
+  }
