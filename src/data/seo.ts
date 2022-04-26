@@ -1,5 +1,8 @@
 import { DefaultSeoProps } from 'next-seo';
+import { getDeploymentUrl } from '@/util/url';
 import websiteData from './website.json';
+
+const deploymentURL = getDeploymentUrl();
 
 export const defaultSeo: DefaultSeoProps = {
     defaultTitle: websiteData.site_title,
@@ -10,11 +13,11 @@ export const defaultSeo: DefaultSeoProps = {
     openGraph: {
         type: 'website',
         locale: 'en_IE',
-        url: websiteData.site_url,
+        url: deploymentURL,
         site_name: websiteData.site_title,
         images: [
             {
-                url: `${websiteData.site_url}preview.png`,
+                url: `${deploymentURL}/preview.png`,
                 width: 1200,
                 height: 800,
                 alt: websiteData.site_title

@@ -1,5 +1,4 @@
 {
     "site_title": "SVG Artwork Generator",
-    "site_description": "Generate SVG grids in your browser and save them as PNG/SVG",
-    "site_url": "https://svg-artwork-generator.vercel.app/"
+    "site_description": "Generate SVG grids in your browser and save them as PNG/SVG"
 }
