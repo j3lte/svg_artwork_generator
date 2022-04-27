@@ -39,7 +39,7 @@ export const SeedInput = observer(() => {
                 }
                 sx={{ flexGrow: 1 }}
                 styles={(theme) => ({
-                    icon: {
+                    icon: store.lockedSeed ? {} : {
                         pointerEvents: 'auto',
                         cursor: 'pointer',
                         ':hover': {

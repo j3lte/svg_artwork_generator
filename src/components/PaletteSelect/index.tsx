@@ -3,14 +3,18 @@ import { observer } from 'mobx-react'
 import { Group, Text, Select, ColorSwatch, Button } from '@mantine/core';
 import { paletteChoices } from "@/util/palette";
 import { useStoreContext } from "@/context/StoreContext";
-import { Lock, LockOpen, Refresh } from "tabler-icons-react";
+import { ChevronDown, Lock, LockOpen, Refresh } from "tabler-icons-react";
 import { Randomizer } from "@/util/random";
 
-const ColorGroup = ({ colors }: { colors: string[] }) => (
-    <Group spacing={0}>
-        {colors.map((c, i) => (<ColorSwatch size={10} key={`${c}-${i}`} color={c} radius={0} />))}
-    </Group>
-)
+const ColorGroup = ({ colors }: { colors: string[] }) => {
+    const colorArray = (new Array(5)).fill(null).map((c, i) => colors[i] ? colors[i] : null);
+
+    return (
+        <Group spacing={0}>
+            {colorArray.map((c, i) => (<ColorSwatch size={10} key={`${c ? c : 'empty'}-${i}`} color={c || '#FFF'} radius={0} sx={{ opacity: c === null ? 0 : 1 }} />))}
+        </Group>
+    )
+}
 
 interface PaletteItemProps extends ComponentPropsWithoutRef<'div'> {
     label: string
@@ -22,7 +26,7 @@ const SelectPalette = forwardRef<HTMLDivElement, PaletteItemProps>(
         <div ref={ref} {...others}>
             <Group noWrap>
                 <ColorGroup colors={colors} />
-                <Text size={'xs'}>{label}</Text>
+                <Text size={'xs'} sx={{ textOverflow: 'ellipsis', whiteSpace: "nowrap", overflow: 'hidden' }}>{label}</Text>
             </Group>
         </div>
     )
@@ -50,10 +54,18 @@ export const PaletteSelect = observer(() => {
                 label="Select palette"
                 placeholder="Pick one"
                 size="sm"
+                maxDropdownHeight={250}
+                searchable
+                limit={100}
+                nothingFound='Nothing found'
                 itemComponent={SelectPalette}
                 disabled={store.lockedPalette}
+                rightSection={<ChevronDown size={14} />}
                 data={data}
                 value={store.selectedPalette}
+                filter={(value, item) =>
+                    item.label?.toLowerCase().includes(value.toLowerCase().trim()) || false
+                }
                 onChange={(selected) => {
                     const valid = selected !== null ? data.findIndex(d => d.value === selected) !== -1 : true;
                     if (valid) {
@@ -65,7 +77,7 @@ export const PaletteSelect = observer(() => {
                 }
                 sx={{ flexGrow: 1 }}
                 styles={(theme) => ({
-                    icon: {
+                    icon: store.lockedPalette ? {} : {
                         pointerEvents: 'auto',
                         cursor: 'pointer',
                         ':hover': {
