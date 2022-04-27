@@ -1,59 +1,9 @@
 import { useStoreContext } from "@/context/StoreContext";
-import { ActionIcon, Button, Group, InputWrapper, NumberInput, NumberInputHandlers, Space } from "@mantine/core";
 import { useDebouncedCallback } from "beautiful-react-hooks";
 import { observer } from "mobx-react";
-import { useRef } from "react";
-import { Minus, Plus } from "tabler-icons-react";
-interface PlusMinusInputProps {
-    inputID: string;
-    label: string;
-    value: number;
-    onChange: (val?: number) => void
-    min?: number;
-    step?: number;
-    max?: number;
-}
+import { Refresh } from "tabler-icons-react";
 
-const PlusMinusInput = ({ inputID, label, value, onChange, min, max, step }: PlusMinusInputProps) => {
-    const handlers = useRef<NumberInputHandlers>();
-
-    return (
-        <InputWrapper
-            id={inputID}
-            label={label}
-            mb={10}
-            sx={{
-                label: {
-                    userSelect: 'none'
-                }
-            }}
-        >
-            <Group spacing={5} noWrap>
-                <Button size={'sm'} variant="default" onClick={() => handlers.current?.decrement()} pl={8} pr={8}>
-                    <Minus size={12} />
-                </Button>
-
-                <NumberInput
-                    id={inputID}
-                    hideControls
-                    value={value}
-                    onChange={onChange}
-                    handlersRef={handlers}
-                    size='sm'
-                    max={max}
-                    min={min}
-                    step={step}
-                    sx={{ flexGrow: 1 }}
-                    styles={{ input: { textAlign: 'center' } }}
-                />
-
-                <Button size={'sm'} variant="default" onClick={() => handlers.current?.increment()}  pl={8} pr={8}>
-                    <Plus size={12} />
-                </Button>
-            </Group>
-        </InputWrapper>
-    )
-}
+import { PlusMinusInput } from "../PlusMinusInput";
 
 export const SizesInput = observer(() => {
     const store = useStoreContext();
@@ -61,6 +11,10 @@ export const SizesInput = observer(() => {
     const onChangeBlockSize =   useDebouncedCallback((val?: number) => { store.setBlockSize(val) });
     const onChangeRowSize =     useDebouncedCallback((val?: number) => { store.setRowSize(val) });
     const onChangeColSize =     useDebouncedCallback((val?: number) => { store.setColSize(val) });
+
+    const onRevertBlockSize =   useDebouncedCallback(() => { store.setBlockSize(100) });
+    const onRevertRowSize =     useDebouncedCallback(() => { store.setRowSize(10) });
+    const onRevertColSize =     useDebouncedCallback(() => { store.setColSize(10) });
 
     return (
         <>
@@ -71,6 +25,9 @@ export const SizesInput = observer(() => {
                 step={10}
                 value={store.blockSize}
                 onChange={onChangeBlockSize}
+                icon={
+                    <Refresh size={18} onClickCapture={onRevertBlockSize} />
+                }
             />
             <PlusMinusInput
                 inputID={'rowSizeInput'}
@@ -78,6 +35,9 @@ export const SizesInput = observer(() => {
                 min={1}
                 value={store.numberOfRows}
                 onChange={onChangeRowSize}
+                icon={
+                    <Refresh size={18} onClickCapture={onRevertRowSize} />
+                }
             />
             <PlusMinusInput
                 inputID={'colSizeInput'}
@@ -85,6 +45,9 @@ export const SizesInput = observer(() => {
                 min={1}
                 value={store.numberOfCols}
                 onChange={onChangeColSize}
+                icon={
+                    <Refresh size={18} onClickCapture={onRevertColSize} />
+                }
             />
         </>
     )
