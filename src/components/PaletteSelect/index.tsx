@@ -25,7 +25,7 @@ const SelectPalette = forwardRef<HTMLDivElement, PaletteItemProps>(
     ({ label, colors, ...others }: PaletteItemProps, ref) => (
         <div ref={ref} {...others}>
             <Group noWrap>
-                <ColorGroup colors={colors} />
+                {/* <ColorGroup colors={colors} /> */}
                 <Text size={'xs'} sx={{ textOverflow: 'ellipsis', whiteSpace: "nowrap", overflow: 'hidden' }}>{label}</Text>
             </Group>
         </div>
@@ -62,6 +62,7 @@ export const PaletteSelect = observer(() => {
                 disabled={store.lockedPalette}
                 rightSection={<ChevronDown size={14} />}
                 data={data}
+                withinPortal
                 value={store.selectedPalette}
                 filter={(value, item) =>
                     item.label?.toLowerCase().includes(value.toLowerCase().trim()) || false
@@ -75,7 +76,12 @@ export const PaletteSelect = observer(() => {
                 icon={
                     <Refresh size={18} onClickCapture={onRefresh} />
                 }
-                sx={{ flexGrow: 1 }}
+                classNames={{
+                    dropdown: 'dropdown-dirty-hack'
+                }}
+                sx={{
+                    flexGrow: 1
+                }}
                 styles={(theme) => ({
                     icon: store.lockedPalette ? {} : {
                         pointerEvents: 'auto',
@@ -83,6 +89,10 @@ export const PaletteSelect = observer(() => {
                         ':hover': {
                             color: theme.black
                         }
+                    },
+                    item: {
+                        overflow: 'hidden',
+                        width: '100%'
                     }
                 })}
             />

@@ -38,3 +38,15 @@ svg.artwork-svg .main {
     cursor: grab;
     /* filter: drop-shadow(2px 2px 2px rgb(0 0 0 / 0.2)) */
 }
+
+.dropdown-dirty-hack .mantine-ScrollArea-viewport {
+    overflow-x: hidden!important;
+    overflow-y: scroll!important;
+}
+.dropdown-dirty-hack .mantine-ScrollArea-viewport > div {
+    min-width: 100%;
+    display: flex!important;
+    max-width: 100%;
+    width: 100%;
+    overflow: hidden;
+}
