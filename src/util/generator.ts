@@ -111,9 +111,8 @@ export const generateBlocks = (props : CreateGeneratorBlockOpts): void => {
       fontStyle.font('Source Code Pro', googleFont.src, { 'font-style': googleFont.fontStyle, 'font-weight': googleFont.fontWeight, 'unicode-range': googleFont.unicodeRange });
     }
 
-    const cssStyles = defs.style();
-
     // Determining if we use attributes or classes (squeezing for server side rendering eventually)
+    // const cssStyles = defs.style();
 
     // colors.forEach((color, index) => {
     //     cssStyles.rule(`fill${index}`, { fill: color });
@@ -127,7 +126,7 @@ export const generateBlocks = (props : CreateGeneratorBlockOpts): void => {
 
     blocks.forEach(block => {
         const generator = generatorMappings[block.generator];
-        generator(groupDrawer, block);
+        generator(groupDrawer, block, { optimize: true });
     });
 
     if (filters.enabled) {

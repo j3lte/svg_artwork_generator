@@ -1,15 +1,15 @@
-import { CreatorFunc, drawRect, generateXYCoords } from "./common";
+import { CreatorFunc, drawRect, generateXYCoords, getGroup } from "./common";
 
 /**
  * Create box with half a square
  * @param drawer
  * @param block
  */
-export const generator: CreatorFunc = (drawer, block) => {
+export const generator: CreatorFunc = (drawer, block, options) => {
     const { x, y } = generateXYCoords(block);
     const { size, color, opts } = block;
 
-    const group = drawer.group().addClass("hs");
+    const group = getGroup(drawer, 'hs', options?.optimize);
 
     const halfX = opts.coin ? 1 : 2;
     const halfY = !opts.coin ? 1 : 2;

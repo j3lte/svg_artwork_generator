@@ -1,15 +1,15 @@
-import { CreatorFunc, drawRect, generateXYCoords } from "./common";
+import { CreatorFunc, drawRect, generateXYCoords, getGroup } from "./common";
 
 /**
  * Create a block with dots
  * @param drawer
  * @param block
  */
-export const generator: CreatorFunc = (drawer, block) => {
+export const generator: CreatorFunc = (drawer, block, options) => {
     const { x, y } = generateXYCoords(block);
     const { size: blockSize, color, opts } = block;
 
-    const group = drawer.group().addClass('sd');
+    const group = getGroup(drawer, 'sd', options?.optimize);
 
     drawRect(group, block); // BG
 

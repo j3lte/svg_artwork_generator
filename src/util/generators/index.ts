@@ -6,7 +6,7 @@ import * as triangle from './triangle';
 // import * as heart from './heart';
 import * as cross from './cross';
 import * as diagonal from './diagonal';
-import * as dots from './dots';
+import * as dots from './roundedDots';
 import * as squareDots from './squareDots';
 import * as halfSquare from './halfSquare';
 import * as letter from './letter';

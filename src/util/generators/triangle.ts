@@ -1,10 +1,10 @@
-import { CreatorFunc, drawRect, generateXYCoords, polygonPath } from "./common";
+import { CreatorFunc, drawRect, generateXYCoords, getGroup, polygonPath } from "./common";
 
-export const generator: CreatorFunc = (drawer, block) => {
+export const generator: CreatorFunc = (drawer, block, options) => {
     const { x, y } = generateXYCoords(block);
     const { size, color, opts } = block;
 
-    const group = drawer.group().addClass("tr");
+    const group = getGroup(drawer, 'tr', options?.optimize);
 
     drawRect(group, block);
 

@@ -1,16 +1,17 @@
-import { CreatorFunc, drawRect, generateXYCoords, roundNumber } from "./common";
+import { CreatorFunc, drawRect, generateXYCoords, getGroup, roundNumber } from "./common";
 
 /**
  * Create a block with a cross in it
  * @param drawer
  * @param block
  */
-export const generator: CreatorFunc = (drawer, block) => {
+export const generator: CreatorFunc = (drawer, block, options) => {
+    const optimize = options?.optimize;
     const { x, y } = generateXYCoords(block);
     const { size, color, opts } = block;
 
-    const group = drawer.group().addClass("cr");
-    const crossGroup = drawer.group();
+    const group = getGroup(drawer, 'cr', optimize);
+    const crossGroup = getGroup(drawer, null);
 
     const shortEdge = roundNumber(size / 5);
     const longEdge = roundNumber(size / 1.5);
@@ -34,6 +35,7 @@ export const generator: CreatorFunc = (drawer, block) => {
     }
 
     group.add(crossGroup);
+
 }
 
 export const ID = 'cross';

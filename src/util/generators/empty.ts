@@ -1,9 +1,11 @@
 import { Rect } from "@svgdotjs/svg.js";
-import { drawRect, CreatorFunc } from "./common";
+import { drawRect, CreatorFunc, getGroup } from "./common";
 
-export const generator: CreatorFunc = (drawer, block): Rect => {
+export const generator: CreatorFunc = (drawer, block, opts): Rect => {
     return drawRect(
-        drawer.group().addClass('em'),block); // BG
+        getGroup(drawer, 'em', opts?.optimize),
+        block
+    );
 }
 
 export const ID = 'empty';

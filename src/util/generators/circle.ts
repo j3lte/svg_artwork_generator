@@ -1,15 +1,15 @@
-import { CreatorFunc, drawRect, generateXYCoords } from "./common";
+import { CreatorFunc, drawRect, generateXYCoords, getGroup } from "./common";
 
 /**
  * Create circle, with a 30% chance of adding a smaller circle
  * @param drawer
  * @param block
  */
-export const generator: CreatorFunc = (drawer, block) => {
+export const generator: CreatorFunc = (drawer, block, options) => {
     const { x, y } = generateXYCoords(block);
     const { size, color, opts } = block;
 
-    const group = drawer.group().addClass("ci");
+    const group = getGroup(drawer, 'ci', options?.optimize);
 
     drawRect(group, block);
 

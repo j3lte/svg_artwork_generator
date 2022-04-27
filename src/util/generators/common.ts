@@ -1,7 +1,11 @@
 import { G, Svg, Rect } from "@svgdotjs/svg.js";
+import { group } from "console";
 import { Block } from "../generator";
 
-export type CreatorFunc = (drawer: Svg | G, block: Block) => void;
+export type CreatorFuncOptions = {
+    optimize?: boolean;
+}
+export type CreatorFunc = (drawer: Svg | G, block: Block, opts?: CreatorFuncOptions) => void;
 
 export const generateXYCoords = ({ row, col, size }: Block): {x: number, y: number} => ({
     x: col * size,
@@ -34,6 +38,12 @@ export const createClipping = (drawer: Svg | G, group: G, block: Block): Rect =>
     group.clipWith(clipping);
 
     return clipping;
+}
+
+export const getGroup = (drawer: Svg | G, className?: string | null, skip?: boolean) => {
+    if (skip) return drawer;
+    if (!className) return drawer.group();
+    return drawer.group().addClass(className);
 }
 
 /**
