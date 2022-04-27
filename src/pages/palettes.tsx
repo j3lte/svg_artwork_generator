@@ -1,15 +1,16 @@
 import type { NextPage } from 'next';
-import { AppShell, Badge, Box, Card, Container, Group, SimpleGrid, Text, Title } from '@mantine/core';
+import { AppShell, Badge, Box, Card, Container, Group, ScrollArea, SimpleGrid, Tabs, Text, Title } from '@mantine/core';
 import { NextSeo } from 'next-seo';
 import { AppHeader } from '@/components/AppHeader';
 import { AppFooter } from '@/components/AppFooter';
 import { PaletteChoice, paletteChoices } from '@/util/palette';
 import { observer } from 'mobx-react';
 import { useStoreContext } from '@/context/StoreContext';
-import { Lock } from 'tabler-icons-react';
+import { Flame, LayoutGrid, Lock } from 'tabler-icons-react';
 import { websiteTitle } from '@/util/seo';
 import { useRouter } from 'next/router';
-import { useCallback, useMemo } from 'react';
+import { FC, PropsWithChildren, useCallback, useMemo, useRef } from 'react';
+import useSize from '@react-hook/size';
 
 interface PaletteCardProps {
     palette: PaletteChoice;
@@ -65,6 +66,32 @@ const PaletteCard = ({ palette, locked, selected, onClick }: PaletteCardProps) =
     )
 }
 
+const TabsContainer: FC<PropsWithChildren<{}>> = ({ children }) => {
+    const containerRef = useRef<HTMLDivElement | null>(null);
+    const [,height] = useSize(containerRef, { initialWidth: 100, initialHeight: 100 });
+
+
+    return (
+        <Container fluid sx={{ height: '100%' }} ref={containerRef}>
+            <ScrollArea
+                style={{ height }}
+            >
+                <SimpleGrid
+                    cols={4}
+                    spacing="lg"
+                    breakpoints={[
+                        { maxWidth: 'md', cols: 3, spacing: 'md' },
+                        { maxWidth: 'sm', cols: 2, spacing: 'sm' },
+                        { maxWidth: 'xs', cols: 2, spacing: 'sm' },
+                    ]}
+                >
+                    {children}
+                </SimpleGrid>
+            </ScrollArea>
+        </Container>
+    )
+}
+
 const PalettePage: NextPage = observer(() => {
     const store = useStoreContext();
     const router = useRouter();
@@ -80,15 +107,19 @@ const PalettePage: NextPage = observer(() => {
         }
     }, [locked, router, selectPalette]);
 
-    const paletteCards = useMemo(() => paletteChoices.map(palette => (
-        <PaletteCard
-            palette={palette}
-            key={palette.value}
-            locked={locked}
-            selected={palette.value === selected}
-            onClick={onClick}
-        />
-    )), [locked, onClick, selected])
+    const getPaletteCard = useCallback((palette: PaletteChoice, selected: boolean) => (<PaletteCard
+        palette={palette}
+        key={palette.value}
+        locked={locked}
+        selected={selected}
+        onClick={onClick}
+    />), [locked, onClick]);
+
+    const paletteNice = useMemo(() => paletteChoices.filter(p => p.group === 'Nice'), []);
+    const paletteBrands = useMemo(() => paletteChoices.filter(p => p.group === 'Brand'), []);
+
+    const paletteNiceCards = useMemo(() => paletteNice.map(palette => getPaletteCard(palette, palette.value === selected)), [getPaletteCard, paletteNice, selected])
+    const paletteBrandsCards = useMemo(() => paletteBrands.map(palette => getPaletteCard(palette, palette.value === selected)), [getPaletteCard, paletteBrands, selected])
 
     return (
         <>
@@ -107,9 +138,31 @@ const PalettePage: NextPage = observer(() => {
                     }
                 })}
             >
-                <Container size={'xl'} sx={{ overflow: 'hidden' }}>
-                    <Title order={2}>Available palettes</Title>
-                    <Box sx={{ margin: 0 }} pt={10} pb={70}>
+                <Container size={'xl'} sx={{ overflow: 'hidden', height: '100%', display: 'flex', flexDirection: 'column' }}>
+                    <Title order={2} sx={{ flex: '0 1 auto' }}>Palettes</Title>
+                    <Tabs
+                        color="dark"
+                        styles={(theme) => ({
+                            root: {
+                                display: 'flex', flexDirection: 'column', flex: '1 1 auto'
+                            },
+                            tabsListWrapper: {
+                                flex: '0 1 auto'
+                            },
+                            body: {
+                                flex: '1 1 auto'
+                            }
+
+                        })}
+                    >
+                        <Tabs.Tab label="Nice" icon={<LayoutGrid size={14} />}>
+                            <TabsContainer>{paletteNiceCards}</TabsContainer>
+                        </Tabs.Tab>
+                        <Tabs.Tab label="Brands" icon={<Flame size={14} />}>
+                            <TabsContainer>{paletteBrandsCards}</TabsContainer>
+                        </Tabs.Tab>
+                    </Tabs>
+                    {/* <Box sx={{ margin: 0 }} pt={10} pb={70}>
                         <SimpleGrid
                             cols={4}
                             spacing="lg"
@@ -121,7 +174,7 @@ const PalettePage: NextPage = observer(() => {
                         >
                             {paletteCards}
                         </SimpleGrid>
-                    </Box>
+                    </Box> */}
                 </Container>
             </AppShell>
         </>
