@@ -11,65 +11,23 @@ import { websiteTitle } from '@/util/seo';
 import { useRouter } from 'next/router';
 import { FC, PropsWithChildren, useCallback, useMemo, useRef } from 'react';
 import useSize from '@react-hook/size';
+import { PaletteCard } from '@/components/PaletteCards';
 
-interface PaletteCardProps {
-    palette: PaletteChoice;
-    locked: boolean;
-    selected: boolean;
-    onClick: (palette: PaletteChoice) => void;
-}
 
-const PaletteCard = ({ palette, locked, selected, onClick }: PaletteCardProps) => {
-    return (
-        <Card
-            shadow="sm"
-            p="sm"
-            pb={5}
-            withBorder
-            sx={(theme) => ({
-                background: selected ? theme.colors.gray[2] : 'light',
-                cursor: locked ? 'default' : 'pointer'
-            })}
-            onClickCapture={() => {
-                if (!locked) {
-                   onClick(palette);
-                }
-            }}
-        >
-            <Card.Section>
-                <Group noWrap sx={{ gap: 0 }}>
-                    {palette.colors.map((c, i) => (
-                        <Box
-                            key={`${palette.label}_${c}_${i}`}
-                            sx={(theme) => ({
-                                height: 50,
-                                flexGrow: 1,
-                                background: c,
-                                '@media (max-width: 755px)': {
-                                    height: 40
-                                },
-                            })}
-                        />
-                    ))}
-                </Group>
-            </Card.Section>
-            <Group position="apart" sx={(theme) => ({ marginBottom: 5, marginTop: theme.spacing.sm })}>
-                <Text size='sm' sx={(theme) => ({ fontWeight: selected ? 800 : 400, userSelect: 'none' })}>{palette.label}</Text>
-                <Group noWrap sx={{ gap: 3 }}>
-                    {locked && selected ? (<Lock size={16} />) : null}
-                    {selected ? (<Badge color="dark" variant="light">
-                        Selected
-                    </Badge>) : null}
-                </Group>
-            </Group>
-        </Card>
-    )
-}
-
-const TabsContainer: FC<PropsWithChildren<{}>> = ({ children }) => {
+const TabsContainer: FC<PropsWithChildren<{ palettes: PaletteChoice[], locked: boolean, selected: string | null, onClick: (palette: PaletteChoice) => void }>> = ({ palettes, locked, selected, onClick }) => {
     const containerRef = useRef<HTMLDivElement | null>(null);
-    const [,height] = useSize(containerRef, { initialWidth: 100, initialHeight: 100 });
+    const [,height] = useSize(containerRef, { initialWidth: 400, initialHeight: 400 });
 
+    const cards = useMemo(() => palettes.map(p => (
+        <PaletteCard
+            key={p.value}
+            palette={p}
+            locked={locked}
+            selected={selected === p.value}
+            onClick={onClick}
+            initialHeight={100}
+        />
+    )), [locked, palettes, selected, onClick]);
 
     return (
         <Container fluid sx={{ height: '100%' }} ref={containerRef}>
@@ -85,7 +43,7 @@ const TabsContainer: FC<PropsWithChildren<{}>> = ({ children }) => {
                         { maxWidth: 'xs', cols: 2, spacing: 'sm' },
                     ]}
                 >
-                    {children}
+                    {cards}
                 </SimpleGrid>
             </ScrollArea>
         </Container>
@@ -97,7 +55,6 @@ const PalettePage: NextPage = observer(() => {
     const router = useRouter();
 
     const locked = store.lockedPalette;
-    const selected = store.selectedPalette;
     const selectPalette = store.setSelectedPalette.bind(store);
 
     const onClick = useCallback((palette: PaletteChoice) => {
@@ -107,19 +64,8 @@ const PalettePage: NextPage = observer(() => {
         }
     }, [locked, router, selectPalette]);
 
-    const getPaletteCard = useCallback((palette: PaletteChoice, selected: boolean) => (<PaletteCard
-        palette={palette}
-        key={palette.value}
-        locked={locked}
-        selected={selected}
-        onClick={onClick}
-    />), [locked, onClick]);
-
     const paletteNice = useMemo(() => paletteChoices.filter(p => p.group === 'Nice'), []);
     const paletteBrands = useMemo(() => paletteChoices.filter(p => p.group === 'Brand'), []);
-
-    const paletteNiceCards = useMemo(() => paletteNice.map(palette => getPaletteCard(palette, palette.value === selected)), [getPaletteCard, paletteNice, selected])
-    const paletteBrandsCards = useMemo(() => paletteBrands.map(palette => getPaletteCard(palette, palette.value === selected)), [getPaletteCard, paletteBrands, selected])
 
     return (
         <>
@@ -156,25 +102,22 @@ const PalettePage: NextPage = observer(() => {
                         })}
                     >
                         <Tabs.Tab label="Nice" icon={<LayoutGrid size={14} />}>
-                            <TabsContainer>{paletteNiceCards}</TabsContainer>
+                            <TabsContainer
+                                palettes={paletteNice}
+                                locked={locked}
+                                selected={store.selectedPalette}
+                                onClick={onClick}
+                            />
                         </Tabs.Tab>
                         <Tabs.Tab label="Brands" icon={<Flame size={14} />}>
-                            <TabsContainer>{paletteBrandsCards}</TabsContainer>
+                            <TabsContainer
+                                palettes={paletteBrands}
+                                locked={locked}
+                                selected={store.selectedPalette}
+                                onClick={onClick}
+                            />
                         </Tabs.Tab>
                     </Tabs>
-                    {/* <Box sx={{ margin: 0 }} pt={10} pb={70}>
-                        <SimpleGrid
-                            cols={4}
-                            spacing="lg"
-                            breakpoints={[
-                                { maxWidth: 'md', cols: 3, spacing: 'md' },
-                                { maxWidth: 'sm', cols: 2, spacing: 'sm' },
-                                { maxWidth: 'xs', cols: 2, spacing: 'sm' },
-                            ]}
-                        >
-                            {paletteCards}
-                        </SimpleGrid>
-                    </Box> */}
                 </Container>
             </AppShell>
         </>
