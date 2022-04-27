@@ -11,13 +11,8 @@ export const generator: CreatorFunc = (drawer, block) => {
 
     const group = drawer.group().addClass("hs");
 
-    let halfX = 2;
-    let halfY = 2;
-    if (opts.coin) {
-        halfX = 1;
-    } else {
-        halfY = 1;
-    }
+    const halfX = opts.coin ? 1 : 2;
+    const halfY = !opts.coin ? 1 : 2;
 
     drawRect(group, block); // BG
 

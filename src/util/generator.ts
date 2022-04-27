@@ -15,7 +15,8 @@ export interface CreateGeneratorBlockOpts {
     drawer: Svg;
     blocks: Array<Block>;
     generators: generatorKey[];
-    size?: { width: number, height: number };
+    colors: string[];
+    size: { width: number, height: number };
     filters: GeneratorFilters;
 }
 export interface BlockColors {
@@ -24,6 +25,11 @@ export interface BlockColors {
     bg: string;
     c1: string;
     other: string[];
+    indexes: {
+        fg: number;
+        bg: number;
+        c1: number;
+    };
 }
 
 export interface BlockOptions {
@@ -92,20 +98,32 @@ export const generateBlocksObjects = (
 
 
 export const generateBlocks = (props : CreateGeneratorBlockOpts): void => {
-    const { drawer, blocks, generators, filters } = props;
+    const { drawer, blocks, generators, filters, colors } = props;
     drawer.clear();
 
     const defs = drawer.defs();
 
     // We're adding the Source Code Pro font to the SVG itself when we're using letters
     if (generators.includes('let')) {
-      const style = defs.style();
+      const fontStyle = defs.style();
 
       // @ts-ignore
-      style.font('Source Code Pro', googleFont.src, { 'font-style': googleFont.fontStyle, 'font-weight': googleFont.fontWeight, 'unicode-range': googleFont.unicodeRange });
+      fontStyle.font('Source Code Pro', googleFont.src, { 'font-style': googleFont.fontStyle, 'font-weight': googleFont.fontWeight, 'unicode-range': googleFont.unicodeRange });
     }
 
-    const groupDrawer = drawer.group().addClass('main');
+    const cssStyles = defs.style();
+
+    // Determining if we use attributes or classes (squeezing for server side rendering eventually)
+
+    // colors.forEach((color, index) => {
+    //     cssStyles.rule(`fill${index}`, { fill: color });
+    // });
+
+    // if (blocks && blocks[0]) {
+    //     cssStyles.rule(`.block`, { width: `${blocks[0].size}px`, height: `${blocks[0].size}px` })
+    // }
+
+    const groupDrawer = drawer.group().addClass('main-art');
 
     blocks.forEach(block => {
         const generator = generatorMappings[block.generator];

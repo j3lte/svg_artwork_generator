@@ -13,11 +13,15 @@ export const roundNumber = (num: number) => {
     return Math.round(m) / 10000 * Math.sign(num);
 }
 
-export const drawRect = (drawer: G | Svg, block: Block, bgColor?: string): Rect => {
+export const drawRect = (drawer: G | Svg, block: Block, bgColor?: string | null, className?: string): Rect => {
     const fillColor = bgColor || block.color.bg;
     const { x, y } = generateXYCoords(block);
 
     const rect = drawer.rect(block.size, block.size);
+
+    if (className) {
+        rect.addClass(className);
+    }
 
     rect.fill(fillColor);
     rect.move(x, y);
@@ -60,7 +64,7 @@ export const polygonPath = (
 ): string =>
     points(sideCount, radius)
       .map(({ r, theta }) => [
-        centerX + r * Math.cos(theta),
-        centerY + r * Math.sin(theta),
+        roundNumber(centerX + r * Math.cos(theta)),
+        roundNumber(centerY + r * Math.sin(theta)),
       ])
       .join(' ');

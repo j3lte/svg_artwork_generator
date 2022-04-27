@@ -15,6 +15,11 @@ export const getRandomColors = (colors: string[], random?: Randomizer): BlockCol
         bg: colorArray[0],
         fg: colorArray[1],
         c1: colorArray[2],
-        other: colorArray.slice(3)
+        other: colorArray.slice(3),
+        indexes: {
+            fg: colors.indexOf(colorArray[0]),
+            bg: colors.indexOf(colorArray[1]),
+            c1: colors.indexOf(colorArray[2]),
+        }
     }
 }

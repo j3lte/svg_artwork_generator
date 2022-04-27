@@ -29,7 +29,7 @@ export const Renderer = observer(() => {
     const { drawerOpened } = useUIContext();
     const [loading, setLoading] = useState(false);
 
-    const {blocks, viewBox, generators, size, ready, filters} = store;
+    const {blocks, viewBox, generators, size, ready, filters, paletteColors} = store;
     const [width, height] = useSize(elRef, { initialWidth: 100, initialHeight: 100 });
 
     const fixWidthSvg = useDebouncedCallback((width: number, height: number) => {
@@ -48,9 +48,9 @@ export const Renderer = observer(() => {
     useEffect(() => {
         if (elRef.current && ready) {
             const drawer = createSvgDrawer(elRef.current, viewBox);
-            generateBlocks({drawer, blocks, generators, size, filters});
+            generateBlocks({drawer, blocks, generators, size, filters, colors: paletteColors});
         }
-    }, [blocks, viewBox, ready, generators, size, filters]);
+    }, [blocks, viewBox, ready, generators, size, filters, paletteColors]);
 
     useEffect(() => {
         resetZoom();
