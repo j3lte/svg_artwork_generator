@@ -7,7 +7,7 @@ import { BlocksSelector } from '../BlockSelector';
 import { useUIContext } from '@/context/UIContext';
 import { Adjustments } from '../Adjustments';
 
-export const Options = () => {
+export const Options = ({ multiple }: { multiple?: boolean }) => {
     // const { accordionState, setAccordionState } = useUIContext();
 
     // // TODO: BUG, Accordion is set to -1 when closes;
@@ -24,6 +24,7 @@ export const Options = () => {
         <Accordion
             disableIconRotation
             state={state}
+            multiple={multiple}
             onChange={handlers.setState}
         >
             <Accordion.Item
