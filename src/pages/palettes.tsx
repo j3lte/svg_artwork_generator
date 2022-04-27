@@ -9,13 +9,16 @@ import { useStoreContext } from '@/context/StoreContext';
 import { Lock } from 'tabler-icons-react';
 import { websiteTitle } from '@/util/seo';
 import { useRouter } from 'next/router';
+import { useCallback, useMemo } from 'react';
 
+interface PaletteCardProps {
+    palette: PaletteChoice;
+    locked: boolean;
+    selected: boolean;
+    onClick: (palette: PaletteChoice) => void;
+}
 
-const PaletteCard = observer(({ palette }: { palette: PaletteChoice }) => {
-    const store = useStoreContext();
-    const isSelected = store.selectedPalette === palette.value;
-    const router = useRouter();
-
+const PaletteCard = ({ palette, locked, selected, onClick }: PaletteCardProps) => {
     return (
         <Card
             shadow="sm"
@@ -23,15 +26,14 @@ const PaletteCard = observer(({ palette }: { palette: PaletteChoice }) => {
             pb={5}
             withBorder
             sx={(theme) => ({
-                background: isSelected ? theme.colors.gray[2] : 'light',
-                cursor: store.lockedPalette ? 'default' : 'pointer'
+                background: selected ? theme.colors.gray[2] : 'light',
+                cursor: locked ? 'default' : 'pointer'
             })}
-            onClick={() => {
-                if (!store.lockedPalette) {
-                    store.setSelectedPalette(palette.value)}
-                    router.replace('/');
+            onClickCapture={() => {
+                if (!locked) {
+                   onClick(palette);
                 }
-            }
+            }}
         >
             <Card.Section>
                 <Group noWrap sx={{ gap: 0 }}>
@@ -51,19 +53,42 @@ const PaletteCard = observer(({ palette }: { palette: PaletteChoice }) => {
                 </Group>
             </Card.Section>
             <Group position="apart" sx={(theme) => ({ marginBottom: 5, marginTop: theme.spacing.sm })}>
-                <Text size='sm' sx={(theme) => ({ fontWeight: isSelected ? 800 : 400, userSelect: 'none' })}>{palette.label}</Text>
+                <Text size='sm' sx={(theme) => ({ fontWeight: selected ? 800 : 400, userSelect: 'none' })}>{palette.label}</Text>
                 <Group noWrap sx={{ gap: 3 }}>
-                    {store.lockedPalette && isSelected ? (<Lock size={16} />) : null}
-                    {isSelected ? (<Badge color="dark" variant="light">
+                    {locked && selected ? (<Lock size={16} />) : null}
+                    {selected ? (<Badge color="dark" variant="light">
                         Selected
                     </Badge>) : null}
                 </Group>
             </Group>
         </Card>
     )
-})
+}
 
-const PalettePage: NextPage = () => {
+const PalettePage: NextPage = observer(() => {
+    const store = useStoreContext();
+    const router = useRouter();
+
+    const locked = store.lockedPalette;
+    const selected = store.selectedPalette;
+    const selectPalette = store.setSelectedPalette.bind(store);
+
+    const onClick = useCallback((palette: PaletteChoice) => {
+        if (!locked) {
+            selectPalette(palette.value)
+            router.replace('/');
+        }
+    }, [locked, router, selectPalette]);
+
+    const paletteCards = useMemo(() => paletteChoices.map(palette => (
+        <PaletteCard
+            palette={palette}
+            key={palette.value}
+            locked={locked}
+            selected={palette.value === selected}
+            onClick={onClick}
+        />
+    )), [locked, onClick, selected])
 
     return (
         <>
@@ -94,15 +119,13 @@ const PalettePage: NextPage = () => {
                                 { maxWidth: 'xs', cols: 2, spacing: 'sm' },
                             ]}
                         >
-                            {paletteChoices.map(palette => (
-                                <PaletteCard palette={palette} key={palette.value} />
-                            ))}
+                            {paletteCards}
                         </SimpleGrid>
                     </Box>
                 </Container>
             </AppShell>
         </>
     )
-}
+})
 
 export default PalettePage
