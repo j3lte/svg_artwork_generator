@@ -8,11 +8,13 @@ import { observer } from 'mobx-react';
 import { useStoreContext } from '@/context/StoreContext';
 import { Lock } from 'tabler-icons-react';
 import { websiteTitle } from '@/util/seo';
+import { useRouter } from 'next/router';
 
 
 const PaletteCard = observer(({ palette }: { palette: PaletteChoice }) => {
     const store = useStoreContext();
     const isSelected = store.selectedPalette === palette.value;
+    const router = useRouter();
 
     return (
         <Card
@@ -27,6 +29,7 @@ const PaletteCard = observer(({ palette }: { palette: PaletteChoice }) => {
             onClick={() => {
                 if (!store.lockedPalette) {
                     store.setSelectedPalette(palette.value)}
+                    router.replace('/');
                 }
             }
         >
