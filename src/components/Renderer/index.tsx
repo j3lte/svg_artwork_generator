@@ -12,6 +12,7 @@ import { createSvgDrawer, resizeDrawer } from "@/util/svg";
 import { generateBlocks } from "@/util/generator";
 import { savePNG, saveSVG } from "@/util/saveImage";
 import { useUIContext } from "@/context/UIContext";
+import { useMediaQuery } from "@mantine/hooks";
 
 const defaultButtomStyles = {
     root: {
@@ -24,6 +25,8 @@ const defaultButtomStyles = {
 }
 
 export const Renderer = observer(() => {
+    const xsScreen = useMediaQuery('(max-width: 900px)');
+
     const elRef = useRef<HTMLDivElement | null>(null);
     const store = useStoreContext();
     const { drawerOpened } = useUIContext();
@@ -78,10 +81,10 @@ export const Renderer = observer(() => {
                 overlayColor={'white'}
                 overlayOpacity={0.8}
             />
-            <Affix position={{ bottom: 12, right: 12 }}>
-                <Group noWrap sx={{ gap: 8 }} hidden={drawerOpened}>
+            <Affix position={xsScreen ? { bottom: 16, right: 12 } : { bottom: 12, right: 12 }}>
+                <Group noWrap sx={{ gap: xsScreen ? 4 : 8 }} hidden={drawerOpened}>
                     <Button
-                        size="sm"
+                        size={ xsScreen ? 'xs' : 'sm' }
                         disabled={store.lockedPalette && store.lockedSeed}
                         hidden={store.lockedPalette && store.lockedSeed}
                         variant="outline" color={"dark"}
@@ -93,15 +96,20 @@ export const Renderer = observer(() => {
                             Random
                         </Button>
                     <Button
-                        size="sm"
+                        size={ xsScreen ? 'xs' : 'sm' }
                         variant="outline" color={'dark'}
                         leftIcon={<Viewfinder size={16} />}
-                        styles={defaultButtomStyles}
+                        styles={{
+                            ...defaultButtomStyles,
+                            leftIcon: {
+                                marginRight: xsScreen ? 0 : 5,
+                            }
+                        }}
                         onClick={resetZoom}>
-                            Reset zoom
+                            { xsScreen ? '' : 'Reset' }
                         </Button>
                     <Button
-                        size="sm"
+                        size={ xsScreen ? 'xs' : 'sm' }
                         variant="outline" color='teal'
                         leftIcon={<Download size={16} />}
                         styles={defaultButtomStyles}
@@ -121,7 +129,7 @@ export const Renderer = observer(() => {
                             PNG
                         </Button>
                     <Button
-                        size="sm"
+                        size={ xsScreen ? 'xs' : 'sm' }
                         variant="outline" color='teal'
                         leftIcon={<Download size={16} />}
                         styles={defaultButtomStyles}
