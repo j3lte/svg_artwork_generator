@@ -70,6 +70,7 @@ const PalettePage: NextPage = observer(() => {
                                 selected={store.selectedPalette}
                                 onClick={onClick}
                                 tabID={0}
+                                maxTabID={1}
                             />
                         </Tabs.Tab>
                         <Tabs.Tab label="Brands" icon={<Flame size={14} />}>
@@ -78,6 +79,7 @@ const PalettePage: NextPage = observer(() => {
                                 selected={store.selectedPalette}
                                 onClick={onClick}
                                 tabID={1}
+                                maxTabID={1}
                             />
                         </Tabs.Tab>
                     </Tabs>

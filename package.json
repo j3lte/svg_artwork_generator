@@ -32,6 +32,7 @@
     "random-seedable": "^1.0.8",
     "react": "18.0.0",
     "react-dom": "18.0.0",
+    "react-swipeable": "^7.0.0",
     "svgdom": "^0.1.10",
     "tabler-icons-react": "^1.46.0"
   },

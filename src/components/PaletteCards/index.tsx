@@ -2,7 +2,6 @@ import { PaletteChoice } from "@/util/palette";
 import { Card, Group, Box, Text, Badge } from "@mantine/core";
 import { useEffect, useRef, useState } from "react";
 import useViewportSpy from "src/hooks/useViewPortSpy";
-import { Lock } from "tabler-icons-react";
 
 interface PaletteCardProps {
     palette: PaletteChoice;
@@ -22,13 +21,13 @@ const Colors = ({ palette }: {palette: PaletteChoice}) => (
                     flexGrow: 1,
                     background: c,
                     '@media (max-width: 755px)': {
-                        height: 40
+                        height: 30
                     },
                 })}
             />
         ))}
     </>
-)
+);
 
 export const PaletteCard = ({ palette, selected, onClick, initialHeight }: PaletteCardProps) => {
     const cardRef = useRef<HTMLDivElement | null>(null);
@@ -58,20 +57,29 @@ export const PaletteCard = ({ palette, selected, onClick, initialHeight }: Palet
             }}
         >
             <Card.Section>
-                {isSeen ? (
-                <Group noWrap sx={{ gap: 0 }}>
-                    <Colors palette={palette} />
-                </Group>
-                ): (<Box sx={{ height: 50 }} />) }
+                {
+                    isSeen ?
+                    (
+                        <Group noWrap sx={{ gap: 0 }}>
+                            <Colors palette={palette} />
+                        </Group>
+                    ): (
+                        <Box sx={{
+                            height: 50,
+                            '@media (max-width: 755px)': {
+                                height: 30
+                            },
+                        }} />
+                    )
+                }
             </Card.Section>
             <Group position="apart" sx={(theme) => ({ marginBottom: 5, marginTop: theme.spacing.sm })}>
                 <Text size='sm' sx={(theme) => ({ fontWeight: selected ? 800 : 400, userSelect: 'none' })}>{palette.label}</Text>
-                <Group noWrap sx={{ gap: 3 }}>
-                    {/* {locked && selected ? (<Lock size={16} />) : null} */}
-                    {selected ? (<Badge color="dark" variant="light">
-                        Selected
-                    </Badge>) : null}
-                </Group>
+                {selected ? (<Badge color="dark" variant="light" sx={{ '@media (max-width: 755px)': {
+                                display: 'none'
+                            }, }}>
+                    Selected
+                </Badge>) : null}
             </Group>
         </Card>
     )

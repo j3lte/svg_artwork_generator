@@ -1,9 +1,11 @@
 import { useUIContext, XYCoordinate } from "@/context/UIContext";
 import { PaletteChoice } from "@/util/palette";
 import { ScrollArea, SimpleGrid, Container } from "@mantine/core";
+import { useMediaQuery } from "@mantine/hooks";
 import useSize from "@react-hook/size";
 import { useDebouncedCallback } from "beautiful-react-hooks";
 import { FC, PropsWithChildren, useRef, useMemo, useEffect, useState, MutableRefObject } from "react";
+import { useSwipeable } from "react-swipeable";
 import { PaletteCard } from "../PaletteCards";
 
 interface PaletteTabsContainerProps {
@@ -11,10 +13,26 @@ interface PaletteTabsContainerProps {
     selected: string | null;
     onClick: (palette: PaletteChoice) => void;
     tabID: number;
+    maxTabID: number;
 }
 
-export const PaletteTabsContainer: FC<PropsWithChildren<PaletteTabsContainerProps>> = ({ palettes, selected, onClick, tabID }) => {
+export const PaletteTabsContainer: FC<PropsWithChildren<PaletteTabsContainerProps>> = ({ palettes, selected, onClick, tabID, maxTabID }) => {
     const ui = useUIContext();
+    const smallScreen = useMediaQuery('(max-width: 755px)');
+
+    const swipeHandlers = useSwipeable({
+        onSwipedRight: () => {
+            if (tabID > 0) {
+                ui.setActivePaletteTab(tabID - 1);
+            }
+        },
+        onSwipedLeft: () => {
+            if (tabID < maxTabID) {
+                ui.setActivePaletteTab(tabID + 1);
+            }
+        },
+        preventScrollOnSwipe: true,
+    });
 
     const containerRef = useRef<HTMLDivElement | null>(null);
     const viewportRef = useRef<HTMLDivElement | null>(null);
@@ -41,7 +59,7 @@ export const PaletteTabsContainer: FC<PropsWithChildren<PaletteTabsContainerProp
             palette={p}
             selected={selected === p.value}
             onClick={onClick}
-            initialHeight={100}
+            initialHeight={smallScreen ? 80 : 100}
         />
     )), [palettes, selected, onClick]);
 
@@ -51,6 +69,7 @@ export const PaletteTabsContainer: FC<PropsWithChildren<PaletteTabsContainerProp
                 style={{ height }}
                 onScrollPositionChange={setPosition}
                 viewportRef={viewportRef}
+                {...swipeHandlers}
             >
                 <SimpleGrid
                     cols={4}
