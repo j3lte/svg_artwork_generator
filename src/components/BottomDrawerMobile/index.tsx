@@ -1,7 +1,8 @@
 import { useUIContext } from "@/context/UIContext"
-import { Drawer, ScrollArea, Affix, MediaQuery, Button } from "@mantine/core"
+import { Drawer, ScrollArea, Affix, MediaQuery, Button, Group, ThemeIcon } from "@mantine/core"
 import { useMediaQuery } from "@mantine/hooks"
-import { Settings } from "tabler-icons-react"
+import Link from "next/link"
+import { Palette, Settings } from "tabler-icons-react"
 import { Options } from "../Options"
 
 export const BottomDrawerMobile = () => {
@@ -23,21 +24,30 @@ export const BottomDrawerMobile = () => {
             </Drawer>
             <Affix position={xsScreen ? { bottom: 16, left: 12 } : { bottom: 12, left: 12 }}>
                 <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
-                    <Button
-                        size={xsScreen ? 'xs' : 'sm'}
-                        hidden={drawerOpened}
-                        variant="outline" color='blue'
-                        leftIcon={<Settings size={16} />}
-                        styles={(theme) => ({
-                            root: {
-                                paddingLeft: 5,
-                                paddingRight: 5,
-                            },
-                            leftIcon: {
-                                marginRight: xsScreen ? 0 : 5,
-                            }
-                        })}
-                        onClick={() => setDrawerOpened(!drawerOpened)}>{xsScreen ? '' : 'Options'}</Button>
+                    <Group noWrap sx={{ gap: 10 }}>
+                        <Button
+                            size={xsScreen ? 'xs' : 'sm'}
+                            hidden={drawerOpened}
+                            variant="outline" color='blue'
+                            leftIcon={<Settings size={16} />}
+                            styles={(theme) => ({
+                                root: {
+                                    paddingLeft: 5,
+                                    paddingRight: 5,
+                                },
+                                leftIcon: {
+                                    marginRight: xsScreen ? 0 : 5,
+                                }
+                            })}
+                            onClick={() => setDrawerOpened(!drawerOpened)}>{xsScreen ? '' : 'Options'}</Button>
+                        <Link href="/palettes" passHref>
+                            <a>
+                                <ThemeIcon size={30} variant="outline" color="dark">
+                                    <Palette size={16} />
+                                </ThemeIcon>
+                            </a>
+                        </Link>
+                    </Group>
                 </MediaQuery>
             </Affix>
         </>

@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Header, Title, Image, Stack, Group, ThemeIcon } from "@mantine/core"
+import { Header, Title, Image, Stack, Group, ThemeIcon, MediaQuery } from "@mantine/core"
 import { Book, Palette } from 'tabler-icons-react';
 
 export const AppHeader = () => {
@@ -26,13 +26,17 @@ export const AppHeader = () => {
                     </Link>
                 </div>
                 <Group>
-                    <Link href="/palettes" passHref>
-                        <a>
-                            <ThemeIcon size="lg" variant="outline" color="dark">
-                                <Palette size={20} />
-                            </ThemeIcon>
-                        </a>
-                    </Link>
+                    <MediaQuery smallerThan="sm" styles={{ display: 'none' }}>
+                        <Group>
+                            <Link href="/palettes" passHref>
+                                <a>
+                                    <ThemeIcon size="lg" variant="outline" color="dark">
+                                        <Palette size={20} />
+                                    </ThemeIcon>
+                                </a>
+                            </Link>
+                        </Group>
+                    </MediaQuery>
                     <Link href="/about" passHref>
                         <a>
                             <ThemeIcon size="lg" variant="outline" color="dark">
