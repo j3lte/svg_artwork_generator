@@ -1,5 +1,5 @@
 import type { NextPage } from 'next';
-import { AppShell, Badge, Box, Card, Container, Group, ScrollArea, SimpleGrid, Tabs, Text, Title } from '@mantine/core';
+import { AppShell, Container, Tabs, Title } from '@mantine/core';
 import { NextSeo } from 'next-seo';
 import { AppHeader } from '@/components/AppHeader';
 import { AppFooter } from '@/components/AppFooter';
@@ -9,46 +9,9 @@ import { useStoreContext } from '@/context/StoreContext';
 import { Flame, LayoutGrid, Lock } from 'tabler-icons-react';
 import { websiteTitle } from '@/util/seo';
 import { useRouter } from 'next/router';
-import { FC, PropsWithChildren, useCallback, useMemo, useRef } from 'react';
-import useSize from '@react-hook/size';
-import { PaletteCard } from '@/components/PaletteCards';
+import { useCallback, useMemo } from 'react';
 import { useUIContext } from '@/context/UIContext';
-
-
-const TabsContainer: FC<PropsWithChildren<{ palettes: PaletteChoice[], selected: string | null, onClick: (palette: PaletteChoice) => void }>> = ({ palettes, selected, onClick }) => {
-    const containerRef = useRef<HTMLDivElement | null>(null);
-    const [,height] = useSize(containerRef, { initialWidth: 400, initialHeight: 400 });
-
-    const cards = useMemo(() => palettes.map(p => (
-        <PaletteCard
-            key={p.value}
-            palette={p}
-            selected={selected === p.value}
-            onClick={onClick}
-            initialHeight={100}
-        />
-    )), [palettes, selected, onClick]);
-
-    return (
-        <Container fluid sx={{ height: '100%' }} ref={containerRef}>
-            <ScrollArea
-                style={{ height }}
-            >
-                <SimpleGrid
-                    cols={4}
-                    spacing="lg"
-                    breakpoints={[
-                        { maxWidth: 'md', cols: 3, spacing: 'md' },
-                        { maxWidth: 'sm', cols: 2, spacing: 'sm' },
-                        { maxWidth: 'xs', cols: 2, spacing: 'sm' },
-                    ]}
-                >
-                    {cards}
-                </SimpleGrid>
-            </ScrollArea>
-        </Container>
-    )
-}
+import { PaletteTabsContainer } from '@/components/PaletteTabsContainer';
 
 const PalettePage: NextPage = observer(() => {
     const store = useStoreContext();
@@ -102,17 +65,19 @@ const PalettePage: NextPage = observer(() => {
                         })}
                     >
                         <Tabs.Tab label="Nice" icon={<LayoutGrid size={14} />}>
-                            <TabsContainer
+                            <PaletteTabsContainer
                                 palettes={paletteNice}
                                 selected={store.selectedPalette}
                                 onClick={onClick}
+                                tabID={0}
                             />
                         </Tabs.Tab>
                         <Tabs.Tab label="Brands" icon={<Flame size={14} />}>
-                            <TabsContainer
+                            <PaletteTabsContainer
                                 palettes={paletteBrands}
                                 selected={store.selectedPalette}
                                 onClick={onClick}
+                                tabID={1}
                             />
                         </Tabs.Tab>
                     </Tabs>
