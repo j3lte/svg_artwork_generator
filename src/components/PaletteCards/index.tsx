@@ -6,7 +6,6 @@ import { Lock } from "tabler-icons-react";
 
 interface PaletteCardProps {
     palette: PaletteChoice;
-    locked: boolean;
     selected: boolean;
     initialHeight: number;
     onClick: (palette: PaletteChoice) => void;
@@ -31,7 +30,7 @@ const Colors = ({ palette }: {palette: PaletteChoice}) => (
     </>
 )
 
-export const PaletteCard = ({ palette, locked, selected, onClick, initialHeight }: PaletteCardProps) => {
+export const PaletteCard = ({ palette, selected, onClick, initialHeight }: PaletteCardProps) => {
     const cardRef = useRef<HTMLDivElement | null>(null);
     const [isSeen, setIsSeen] = useState(false);
     const isVisible = useViewportSpy(cardRef);
@@ -51,13 +50,11 @@ export const PaletteCard = ({ palette, locked, selected, onClick, initialHeight 
             withBorder
             sx={(theme) => ({
                 background: selected ? theme.colors.gray[2] : 'light',
-                cursor: locked ? 'default' : 'pointer',
+                cursor: 'pointer',
                 height: isSeen ? 'auto' : initialHeight
             })}
             onClickCapture={() => {
-                if (!locked) {
-                   onClick(palette);
-                }
+                onClick(palette);
             }}
         >
             <Card.Section>
@@ -70,7 +67,7 @@ export const PaletteCard = ({ palette, locked, selected, onClick, initialHeight 
             <Group position="apart" sx={(theme) => ({ marginBottom: 5, marginTop: theme.spacing.sm })}>
                 <Text size='sm' sx={(theme) => ({ fontWeight: selected ? 800 : 400, userSelect: 'none' })}>{palette.label}</Text>
                 <Group noWrap sx={{ gap: 3 }}>
-                    {locked && selected ? (<Lock size={16} />) : null}
+                    {/* {locked && selected ? (<Lock size={16} />) : null} */}
                     {selected ? (<Badge color="dark" variant="light">
                         Selected
                     </Badge>) : null}

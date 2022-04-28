@@ -12,9 +12,10 @@ import { useRouter } from 'next/router';
 import { FC, PropsWithChildren, useCallback, useMemo, useRef } from 'react';
 import useSize from '@react-hook/size';
 import { PaletteCard } from '@/components/PaletteCards';
+import { useUIContext } from '@/context/UIContext';
 
 
-const TabsContainer: FC<PropsWithChildren<{ palettes: PaletteChoice[], locked: boolean, selected: string | null, onClick: (palette: PaletteChoice) => void }>> = ({ palettes, locked, selected, onClick }) => {
+const TabsContainer: FC<PropsWithChildren<{ palettes: PaletteChoice[], selected: string | null, onClick: (palette: PaletteChoice) => void }>> = ({ palettes, selected, onClick }) => {
     const containerRef = useRef<HTMLDivElement | null>(null);
     const [,height] = useSize(containerRef, { initialWidth: 400, initialHeight: 400 });
 
@@ -22,12 +23,11 @@ const TabsContainer: FC<PropsWithChildren<{ palettes: PaletteChoice[], locked: b
         <PaletteCard
             key={p.value}
             palette={p}
-            locked={locked}
             selected={selected === p.value}
             onClick={onClick}
             initialHeight={100}
         />
-    )), [locked, palettes, selected, onClick]);
+    )), [palettes, selected, onClick]);
 
     return (
         <Container fluid sx={{ height: '100%' }} ref={containerRef}>
@@ -52,17 +52,15 @@ const TabsContainer: FC<PropsWithChildren<{ palettes: PaletteChoice[], locked: b
 
 const PalettePage: NextPage = observer(() => {
     const store = useStoreContext();
+    const ui = useUIContext();
     const router = useRouter();
 
-    const locked = store.lockedPalette;
     const selectPalette = store.setSelectedPalette.bind(store);
 
     const onClick = useCallback((palette: PaletteChoice) => {
-        if (!locked) {
-            selectPalette(palette.value)
-            router.replace('/');
-        }
-    }, [locked, router, selectPalette]);
+        selectPalette(palette.value)
+        router.push('/');
+    }, [router, selectPalette]);
 
     const paletteNice = useMemo(() => paletteChoices.filter(p => p.group === 'Nice'), []);
     const paletteBrands = useMemo(() => paletteChoices.filter(p => p.group === 'Brand'), []);
@@ -88,6 +86,8 @@ const PalettePage: NextPage = observer(() => {
                     <Title order={2} sx={{ flex: '0 1 auto' }}>Palettes</Title>
                     <Tabs
                         color="dark"
+                        active={ui.activePaletteTab}
+                        onTabChange={ui.setActivePaletteTab}
                         styles={(theme) => ({
                             root: {
                                 display: 'flex', flexDirection: 'column', flex: '1 1 auto'
@@ -104,7 +104,6 @@ const PalettePage: NextPage = observer(() => {
                         <Tabs.Tab label="Nice" icon={<LayoutGrid size={14} />}>
                             <TabsContainer
                                 palettes={paletteNice}
-                                locked={locked}
                                 selected={store.selectedPalette}
                                 onClick={onClick}
                             />
@@ -112,7 +111,6 @@ const PalettePage: NextPage = observer(() => {
                         <Tabs.Tab label="Brands" icon={<Flame size={14} />}>
                             <TabsContainer
                                 palettes={paletteBrands}
-                                locked={locked}
                                 selected={store.selectedPalette}
                                 onClick={onClick}
                             />
