@@ -1,8 +1,8 @@
 import { useUIContext } from "@/context/UIContext"
-import { Drawer, ScrollArea, Affix, MediaQuery, Button, Group, ThemeIcon } from "@mantine/core"
+import { Drawer, ScrollArea, Affix, MediaQuery, Button, Group, ThemeIcon, Box } from "@mantine/core"
 import { useMediaQuery } from "@mantine/hooks"
 import Link from "next/link"
-import { Palette, Settings } from "tabler-icons-react"
+import { ArrowDown, Palette, Settings } from "tabler-icons-react"
 import { Options } from "../Options"
 
 export const BottomDrawerMobile = () => {
@@ -20,14 +20,26 @@ export const BottomDrawerMobile = () => {
             >
                 <ScrollArea sx={() => ({ height: `100%`, paddingBottom: 50 })}>
                     <Options  />
+                    <Box>
+                        <Group
+                            sx={(theme) => ({
+                                height: 50, color: theme.colors.gray[1],
+                                width: '100%',
+                                alignContent: 'center',
+                                justifyContent: 'center'
+                            })}
+                            onClickCapture={() => setDrawerOpened(false)}
+                        >
+                            <ArrowDown  />
+                        </Group>
+                    </Box>
                 </ScrollArea>
             </Drawer>
             <Affix position={xsScreen ? { bottom: 16, left: 12 } : { bottom: 12, left: 12 }}>
                 <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
-                    <Group noWrap sx={{ gap: 10 }}>
+                    <Group noWrap sx={{ gap: 10 }} hidden={drawerOpened}>
                         <Button
                             size={xsScreen ? 'xs' : 'sm'}
-                            hidden={drawerOpened}
                             variant="outline" color='blue'
                             leftIcon={<Settings size={16} />}
                             styles={(theme) => ({
