@@ -1,10 +1,10 @@
 // https://codepen.io/a-trost/pen/rNGPxaJ
 
-import { Svg } from "@svgdotjs/svg.js";
-import { generatorKey, generatorMappings } from "./generators";
-import { googleFont } from "./svg";
-import { Randomizer } from "./random";
-import { getRandomColors } from "./colors";
+import { Svg } from '@svgdotjs/svg.js';
+import { generatorKey, generatorMappings } from './generators';
+import { googleFont } from './svg';
+import { Randomizer } from './random';
+import { getRandomColors } from './colors';
 
 export interface GeneratorFilters {
     filterBlur?: number;
@@ -16,7 +16,7 @@ export interface CreateGeneratorBlockOpts {
     blocks: Array<Block>;
     generators: generatorKey[];
     colors: string[];
-    size: { width: number, height: number };
+    size: { width: number; height: number };
     filters: GeneratorFilters;
 }
 export interface BlockColors {
@@ -65,12 +65,18 @@ export const generateBlocksObjects = (
     charSet?: string[]
 ) => {
     const random = randomizer || new Randomizer();
-    const characters = charSet || ['ABC']
+    const characters = charSet || ['ABC'];
     const blocks: Array<Block> = [];
     for (let row = 0; row < rows; row++) {
         for (let col = 0; col < cols; col++) {
-
-            const coinFlips = random.coinFlips([ null, null, 0.3, 0.4, 0.6, 0.8]);
+            const coinFlips = random.coinFlips([
+                null,
+                null,
+                0.3,
+                0.4,
+                0.6,
+                0.8,
+            ]);
             blocks.push({
                 row,
                 col,
@@ -88,27 +94,30 @@ export const generateBlocksObjects = (
                     range0_3: random.randRange(0, 3),
                     range2_4: random.randRange(2, 4),
                     rotate: random.choice([0, 90, 180, 270]),
-                    character: random.choice(characters)
-                }
+                    character: random.choice(characters),
+                },
             });
         }
     }
     return blocks;
-}
+};
 
-
-export const generateBlocks = (props : CreateGeneratorBlockOpts): void => {
-    const { drawer, blocks, generators, filters, colors } = props;
+export const generateBlocks = (props: CreateGeneratorBlockOpts): void => {
+    const { drawer, blocks, generators, filters } = props;
     drawer.clear();
 
     const defs = drawer.defs();
 
     // We're adding the Source Code Pro font to the SVG itself when we're using letters
     if (generators.includes('let')) {
-      const fontStyle = defs.style();
+        const fontStyle = defs.style();
 
-      // @ts-ignore
-      fontStyle.font('Source Code Pro', googleFont.src, { 'font-style': googleFont.fontStyle, 'font-weight': googleFont.fontWeight, 'unicode-range': googleFont.unicodeRange });
+        // @ts-ignore: Problem with SVG.js types, this is a proper way to do it
+        fontStyle.font('Source Code Pro', googleFont.src, {
+            'font-style': googleFont.fontStyle,
+            'font-weight': googleFont.fontWeight,
+            'unicode-range': googleFont.unicodeRange,
+        });
     }
 
     // Determining if we use attributes or classes (squeezing for server side rendering eventually)
@@ -124,23 +133,26 @@ export const generateBlocks = (props : CreateGeneratorBlockOpts): void => {
 
     const groupDrawer = drawer.group().addClass('main-art');
 
-    blocks.forEach(block => {
+    blocks.forEach((block) => {
         const generator = generatorMappings[block.generator];
         generator(groupDrawer, block, { optimize: true });
     });
 
     if (filters.enabled) {
-        groupDrawer.filterWith(add => {
+        groupDrawer.filterWith((add) => {
             if (filters.filterBlur && filters.filterBlur > 0) {
-                const blur = add.gaussianBlur(filters.filterBlur, filters.filterBlur)
-                blur.in('BlurFilter')
+                const blur = add.gaussianBlur(
+                    filters.filterBlur,
+                    filters.filterBlur
+                );
+                blur.in('BlurFilter');
             }
 
             if (filters.filterDesaturate) {
-                // @ts-ignore
-                const desaturate = add.colorMatrix('saturate', 0)
-                desaturate.in('DesaturateFilter')
+                // @ts-ignore: Problem with SVG.js types, this is a proper way to do it
+                const desaturate = add.colorMatrix('saturate', 0);
+                desaturate.in('DesaturateFilter');
             }
-        })
+        });
     }
-}
+};

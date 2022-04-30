@@ -15,10 +15,12 @@ interface UIContextInterface {
     onPaletteScrollPositionChange: (state: XYCoordinate) => void;
 }
 
-// @ts-ignore
+// @ts-ignore: Context always empty on initialization
 const UIContext = createContext<UIContextInterface>({});
 
-export const UIProvider: FC<PropsWithChildren<{}>> = ({ children }) => {
+interface ProviderProps {}
+
+export const UIProvider: FC<PropsWithChildren<ProviderProps>> = ({ children }) => {
     const [drawerOpened, setDrawerOpened] = useState(false);
     const [accordionState, setAccordionState] = useState(-1);
 

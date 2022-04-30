@@ -1,4 +1,4 @@
-import { Button, Group, NumberInput, ThemeIcon } from "@mantine/core";
+import { Button, Group, NumberInput } from "@mantine/core";
 import { useDebouncedCallback } from "beautiful-react-hooks";
 import { observer } from "mobx-react";
 import { useMemo } from "react";
@@ -10,7 +10,7 @@ import { useStoreContext } from "@/context/StoreContext";
 export const SeedInput = observer(() => {
     const store = useStoreContext();
 
-    const onChange = useDebouncedCallback((value: any) => {
+    const onChange = useDebouncedCallback((value?: number) => {
         store.setRandomSeed(value ? value : null);
     });
 

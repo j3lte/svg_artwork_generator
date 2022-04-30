@@ -9,10 +9,15 @@
     ],
     "rules": {
         "prefer-const": "error",
-        "@typescript-eslint/no-unused-vars": "error",
+        "@typescript-eslint/ban-ts-comment": ["error", {
+            "ts-ignore": "allow-with-description"
+        }],
+        "@typescript-eslint/no-empty-interface": "off",
+        "@typescript-eslint/no-unused-vars": "warn",
         "@typescript-eslint/no-explicit-any": "error"
     },
     "ignorePatterns": [
-        "public/*.js"
+        "public/*.js",
+        "next.config.js"
     ]
 }

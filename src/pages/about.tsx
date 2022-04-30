@@ -27,7 +27,7 @@ const AboutPage: NextPage = () => {
                 padding={'sm'}
                 header={<AppHeader />}
                 footer={<AppFooter />}
-                styles={(theme) => ({
+                styles={() => ({
                     body: {
                         paddingTop: 70,
                         paddingBottom: 60,

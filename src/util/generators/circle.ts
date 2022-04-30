@@ -1,4 +1,4 @@
-import { CreatorFunc, drawRect, generateXYCoords, getGroup } from "./common";
+import { CreatorFunc, drawRect, generateXYCoords, getGroup } from './common';
 
 /**
  * Create circle, with a 30% chance of adding a smaller circle
@@ -13,14 +13,17 @@ export const generator: CreatorFunc = (drawer, block, options) => {
 
     drawRect(group, block);
 
-    group.circle(size * 0.98).fill(color.fg).move(x + (0.01 * size), y + (0.01 * size));
+    group
+        .circle(size * 0.98)
+        .fill(color.fg)
+        .move(x + 0.01 * size, y + 0.01 * size);
 
     if (opts.coin03) {
         group
             .circle(size / 2)
             .fill(color.bg)
-            .move(x + (size / 4), y + (size / 4))
+            .move(x + size / 4, y + size / 4);
     }
-}
+};
 
 export const ID = 'circle';

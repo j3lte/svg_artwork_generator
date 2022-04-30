@@ -4,7 +4,7 @@ import { ScrollArea, SimpleGrid, Container } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import useSize from "@react-hook/size";
 import { useDebouncedCallback } from "beautiful-react-hooks";
-import { FC, PropsWithChildren, useRef, useMemo, useEffect, useState, MutableRefObject } from "react";
+import { FC, PropsWithChildren, useRef, useMemo, useEffect, useState } from "react";
 import { useSwipeable } from "react-swipeable";
 import { PaletteCard } from "../PaletteCards";
 
@@ -61,7 +61,7 @@ export const PaletteTabsContainer: FC<PropsWithChildren<PaletteTabsContainerProp
             onClick={onClick}
             initialHeight={smallScreen ? 80 : 100}
         />
-    )), [palettes, selected, onClick]);
+    )), [palettes, selected, onClick, smallScreen]);
 
     return (
         <Container fluid sx={{ height: '100%' }} ref={containerRef}>

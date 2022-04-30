@@ -16,7 +16,7 @@ const Colors = ({ palette }: {palette: PaletteChoice}) => (
         {palette.colors.map((c, i) => (
             <Box
                 key={`${palette.label}_${c}_${i}`}
-                sx={(theme) => ({
+                sx={() => ({
                     height: 50,
                     flexGrow: 1,
                     background: c,
@@ -74,7 +74,7 @@ export const PaletteCard = ({ palette, selected, onClick, initialHeight }: Palet
                 }
             </Card.Section>
             <Group position="apart" sx={(theme) => ({ marginBottom: 5, marginTop: theme.spacing.sm })}>
-                <Text size='sm' sx={(theme) => ({ fontWeight: selected ? 800 : 400, userSelect: 'none' })}>{palette.label}</Text>
+                <Text size='sm' sx={() => ({ fontWeight: selected ? 800 : 400, userSelect: 'none' })}>{palette.label}</Text>
                 {selected ? (<Badge color="dark" variant="light" sx={{ '@media (max-width: 755px)': {
                                 display: 'none'
                             }, }}>

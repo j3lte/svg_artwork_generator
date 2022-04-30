@@ -1,4 +1,4 @@
-import { CreatorFunc, drawRect, generateXYCoords, getGroup } from "./common";
+import { CreatorFunc, drawRect, generateXYCoords, getGroup } from './common';
 
 /**
  * Create box with half a square
@@ -21,6 +21,6 @@ export const generator: CreatorFunc = (drawer, block, options) => {
         .rect(size / halfX, size / halfY)
         .fill(color.fg)
         .move(x, y);
-}
+};
 
 export const ID = 'half';

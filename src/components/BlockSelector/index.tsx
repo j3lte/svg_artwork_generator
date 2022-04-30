@@ -18,7 +18,7 @@ export const BlocksSelector = observer(() => {
                         <Text size='sm'>{label}</Text>
                     </Group>
                 }
-                sx={(theme) => ({
+                sx={() => ({
                     position: 'relative',
                     marginTop: (index === 0 || (index !== 0 && arr[index-1].group !== group)) ? 15 : 5,
                     '::before': ((index !== 0 && arr[index-1].group !== group) ? {
@@ -45,7 +45,7 @@ export const BlocksSelector = observer(() => {
             onChange={(values: generatorKey[]) => {
                 store.setGenerators(values);
             }}
-            styles={(theme) => ({
+            styles={() => ({
                 input: {
                     cursor: 'pointer'
                 },

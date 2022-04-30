@@ -1,4 +1,10 @@
-import { CreatorFunc, drawRect, generateXYCoords, getGroup, roundNumber } from "./common";
+import {
+    CreatorFunc,
+    drawRect,
+    generateXYCoords,
+    getGroup,
+    roundNumber,
+} from './common';
 
 /**
  * Create a block with a cross in it
@@ -31,11 +37,10 @@ export const generator: CreatorFunc = (drawer, block, options) => {
         .center(x + half, y + half);
 
     if (opts.coin04) {
-        crossGroup.transform({ rotate: 45, origin: "center center" });
+        crossGroup.transform({ rotate: 45, origin: 'center center' });
     }
 
     group.add(crossGroup);
-
-}
+};
 
 export const ID = 'cross';

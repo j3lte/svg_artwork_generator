@@ -4,7 +4,6 @@ import { AdjustmentsHorizontal, BoxModel2, Palette, TiltShift } from 'tabler-ico
 import { SeedInput } from '../SeedInput';
 import { SizesInput } from '../SizesInput';
 import { BlocksSelector } from '../BlockSelector';
-import { useUIContext } from '@/context/UIContext';
 import { Adjustments } from '../Adjustments';
 
 export const Options = ({ multiple }: { multiple?: boolean }) => {

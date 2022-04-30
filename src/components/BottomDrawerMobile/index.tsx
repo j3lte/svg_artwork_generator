@@ -42,7 +42,7 @@ export const BottomDrawerMobile = () => {
                             size={xsScreen ? 'xs' : 'sm'}
                             variant="outline" color='blue'
                             leftIcon={<Settings size={16} />}
-                            styles={(theme) => ({
+                            styles={() => ({
                                 root: {
                                     paddingLeft: 5,
                                     paddingRight: 5,

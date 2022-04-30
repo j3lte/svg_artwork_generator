@@ -1,15 +1,18 @@
 import { makeAutoObservable, toJS } from 'mobx';
-import { makePersistable, configurePersistable  } from 'mobx-persist-store';
+import { makePersistable, configurePersistable } from 'mobx-persist-store';
 import localForage from 'localforage';
 
 import { Randomizer } from '@/util/random';
-import { getRandomColors} from '@/util/colors';
 import { PaletteChoice, paletteChoices } from '@/util/palette';
 import { generatorKey } from '@/util/generators';
 import { enableStaticRendering } from 'mobx-react';
-import { Block, generateBlocksObjects, GeneratorFilters } from '@/util/generator';
+import {
+    Block,
+    generateBlocksObjects,
+    GeneratorFilters,
+} from '@/util/generator';
 
-const isServer = typeof window === "undefined";
+const isServer = typeof window === 'undefined';
 
 enableStaticRendering(isServer);
 
@@ -24,7 +27,9 @@ configurePersistable(
     { delay: 200, fireImmediately: false }
 );
 
-export const AVAILABLE_CHARACTERS = `ABCDEFGHIJKLMNPRSTUVWXYZ&123456789`.split('');
+export const AVAILABLE_CHARACTERS = `ABCDEFGHIJKLMNPRSTUVWXYZ&123456789`.split(
+    ''
+);
 
 export type HydrateStoreProps = {
     blockSize: number;
@@ -33,24 +38,35 @@ export type HydrateStoreProps = {
     numberOfRows: number;
     randomSeed: number | null;
     selectedPalette: string | null;
-}
+};
 
 export class ArtStore {
     ready = false;
 
-    numberOfRows: number = 5;
-    numberOfCols: number = 5;
-    blockSize: number = 100;
+    numberOfRows = 5;
+    numberOfCols = 5;
+    blockSize = 100;
 
     randomSeed: null | number = new Randomizer().int();
-    selectedPalette: null | string = (new Randomizer().choice(paletteChoices)).value;
+    selectedPalette: null | string = new Randomizer().choice(paletteChoices)
+        .value;
 
     lockedSeed = false;
     lockedPalette = false;
 
-    generators: generatorKey[] = ['empty', 'half', 'diag', 'circle', 'quart', 'dots', 'cross', 'opp', 'let'];
+    generators: generatorKey[] = [
+        'empty',
+        'half',
+        'diag',
+        'circle',
+        'quart',
+        'dots',
+        'cross',
+        'opp',
+        'let',
+    ];
 
-    filterBlur: number = 0;
+    filterBlur = 0;
     filterDesaturate = false;
 
     constructor() {
@@ -65,29 +81,39 @@ export class ArtStore {
     }
 
     persistStore() {
-        makePersistable(this, {
-            name: 'ArtStore',
-            properties: [
-                'randomSeed',
-                'numberOfRows',
-                'numberOfCols',
-                'blockSize',
-                'selectedPalette',
-                'generators',
-                'lockedSeed',
-                'lockedPalette',
-                'filterBlur'
-            ],
-        },
-        {
-            delay: 200,
-            fireImmediately: true,
-        }).then(() => {
+        makePersistable(
+            this,
+            {
+                name: 'ArtStore',
+                properties: [
+                    'randomSeed',
+                    'numberOfRows',
+                    'numberOfCols',
+                    'blockSize',
+                    'selectedPalette',
+                    'generators',
+                    'lockedSeed',
+                    'lockedPalette',
+                    'filterBlur',
+                ],
+            },
+            {
+                delay: 200,
+                fireImmediately: true,
+            }
+        ).then(() => {
             this.setReady();
         });
     }
 
-    hydrate({ blockSize, generators, numberOfCols, numberOfRows, randomSeed, selectedPalette }: HydrateStoreProps): void {
+    hydrate({
+        blockSize,
+        generators,
+        numberOfCols,
+        numberOfRows,
+        randomSeed,
+        selectedPalette,
+    }: HydrateStoreProps): void {
         this.blockSize = blockSize;
         this.generators = generators;
         this.numberOfCols = numberOfCols;
@@ -162,36 +188,39 @@ export class ArtStore {
             this.randomSeed = new Randomizer().int();
         }
         if (!this.lockedPalette) {
-            this.selectedPalette = (new Randomizer().choice(paletteChoices)).value;
+            this.selectedPalette = new Randomizer().choice(
+                paletteChoices
+            ).value;
         }
     }
 
     get viewBox() {
-        return `0 0 ${this.numberOfCols * this.blockSize} ${this.numberOfRows * this.blockSize}`;
+        return `0 0 ${this.numberOfCols * this.blockSize} ${
+            this.numberOfRows * this.blockSize
+        }`;
     }
 
     get size() {
         return {
             width: this.numberOfCols * this.blockSize,
-            height: this.numberOfRows * this.blockSize
-        }
+            height: this.numberOfRows * this.blockSize,
+        };
     }
 
     get filters(): GeneratorFilters {
         return {
             filterBlur: this.filterBlur,
             filterDesaturate: this.filterDesaturate,
-            enabled: (
-                this.filterBlur > 0 ||
-                this.filterDesaturate
-            )
-        }
+            enabled: this.filterBlur > 0 || this.filterDesaturate,
+        };
     }
 
     get palette() {
-        const found = this.selectedPalette !== null ?
-            paletteChoices.find(p => p.value === this.selectedPalette) : null;
-        return found || this.random.choice(paletteChoices) as PaletteChoice;
+        const found =
+            this.selectedPalette !== null
+                ? paletteChoices.find((p) => p.value === this.selectedPalette)
+                : null;
+        return found || (this.random.choice(paletteChoices) as PaletteChoice);
     }
 
     get paletteColors() {
@@ -222,4 +251,4 @@ export class ArtStore {
             AVAILABLE_CHARACTERS
         );
     }
-};
+}

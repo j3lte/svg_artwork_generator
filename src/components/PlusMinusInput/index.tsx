@@ -44,7 +44,7 @@ export const PlusMinusInput = ({ inputID, label, value, onChange, min, max, step
                     max={max}
                     min={min}
                     step={step}
-                    sx={(theme) => ({
+                    sx={() => ({
                         flexGrow: 1, // Why is this not working on styles??
                     })}
                     icon={icon}

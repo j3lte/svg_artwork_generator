@@ -37,7 +37,8 @@ export const Renderer = observer(() => {
 
     const fixWidthSvg = useDebouncedCallback((width: number, height: number) => {
         if (elRef.current) {
-            resizeDrawer(elRef.current, width, height, 32);
+            // resizeDrawer(elRef.current, width, height, 32);
+            resizeDrawer(elRef.current);
         }
     });
 
@@ -68,7 +69,7 @@ export const Renderer = observer(() => {
     return (
         <>
             <Paper
-                sx={(theme) => ({
+                sx={() => ({
                     zIndex: 100,
                     height: 'calc(100vh - 154px)',
                 })}

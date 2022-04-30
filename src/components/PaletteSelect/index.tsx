@@ -1,20 +1,20 @@
 import { ComponentPropsWithoutRef, forwardRef, useMemo } from "react";
 import { observer } from 'mobx-react'
-import { Group, Text, Select, ColorSwatch, Button } from '@mantine/core';
+import { Group, Text, Select, Button } from '@mantine/core';
 import { paletteChoices } from "@/util/palette";
 import { useStoreContext } from "@/context/StoreContext";
 import { ChevronDown, Lock, LockOpen, Refresh } from "tabler-icons-react";
 import { Randomizer } from "@/util/random";
 
-const ColorGroup = ({ colors }: { colors: string[] }) => {
-    const colorArray = (new Array(5)).fill(null).map((c, i) => colors[i] ? colors[i] : null);
+// const ColorGroup = ({ colors }: { colors: string[] }) => {
+//     const colorArray = (new Array(5)).fill(null).map((c, i) => colors[i] ? colors[i] : null);
 
-    return (
-        <Group spacing={0}>
-            {colorArray.map((c, i) => (<ColorSwatch size={10} key={`${c ? c : 'empty'}-${i}`} color={c || '#FFF'} radius={0} sx={{ opacity: c === null ? 0 : 1 }} />))}
-        </Group>
-    )
-}
+//     return (
+//         <Group spacing={0}>
+//             {colorArray.map((c, i) => (<ColorSwatch size={10} key={`${c ? c : 'empty'}-${i}`} color={c || '#FFF'} radius={0} sx={{ opacity: c === null ? 0 : 1 }} />))}
+//         </Group>
+//     )
+// }
 
 interface PaletteItemProps extends ComponentPropsWithoutRef<'div'> {
     label: string
@@ -22,7 +22,7 @@ interface PaletteItemProps extends ComponentPropsWithoutRef<'div'> {
 }
 
 const SelectPalette = forwardRef<HTMLDivElement, PaletteItemProps>(
-    ({ label, colors, ...others }: PaletteItemProps, ref) => (
+    ({ label, ...others }: PaletteItemProps, ref) => (
         <div ref={ref} {...others}>
             <Group noWrap>
                 {/* <ColorGroup colors={colors} /> */}

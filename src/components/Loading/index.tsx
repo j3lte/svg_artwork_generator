@@ -1,4 +1,4 @@
-import { Box, Transition } from "@mantine/core"
+import { Box } from "@mantine/core"
 import Image from "next/image"
 
 export const LoadingScreen = ({ loading }: { loading: boolean }) => {
@@ -8,7 +8,7 @@ export const LoadingScreen = ({ loading }: { loading: boolean }) => {
 
     return (
         <Box
-            sx={(theme) => ({
+            sx={() => ({
                 top: 0,
                 left: 0,
                 position: 'fixed',

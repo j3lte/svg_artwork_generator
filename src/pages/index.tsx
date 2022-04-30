@@ -15,7 +15,7 @@ const Home: NextPage = () => {
             header={<AppHeader />}
             navbar={<AppNavbar/>}
             footer={<AppFooter hideCopy />}
-            styles={(theme) => ({
+            styles={() => ({
                 body: {
                     paddingTop: 70,
                     paddingBottom: 60,

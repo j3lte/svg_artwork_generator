@@ -1,4 +1,4 @@
-import { CreatorFunc, drawRect, generateXYCoords, getGroup } from "./common";
+import { CreatorFunc, drawRect, generateXYCoords, getGroup } from './common';
 
 /**
  * Create a block with dots
@@ -27,6 +27,6 @@ export const generator: CreatorFunc = (drawer, block, options) => {
                 .move(x + offset + i * space, y + offset + j * space);
         }
     }
-}
+};
 
 export const ID = 'dots';

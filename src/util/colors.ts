@@ -1,12 +1,15 @@
-import { BlockColors } from "./generator";
-import { Randomizer } from "./random";
+import { BlockColors } from './generator';
+import { Randomizer } from './random';
 
 export type FixedSizeArray<N extends number, T, M extends string = '0'> = {
-    readonly [k in M]: any;
+    readonly // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    [k in M]: any;
 } & { length: N } & ReadonlyArray<T>;
 
-
-export const getRandomColors = (colors: string[], random?: Randomizer): BlockColors => {
+export const getRandomColors = (
+    colors: string[],
+    random?: Randomizer
+): BlockColors => {
     const rand = random || new Randomizer();
     const colorArray = rand.shuffle(colors, false) as string[];
 
@@ -20,6 +23,6 @@ export const getRandomColors = (colors: string[], random?: Randomizer): BlockCol
             fg: colors.indexOf(colorArray[0]),
             bg: colors.indexOf(colorArray[1]),
             c1: colors.indexOf(colorArray[2]),
-        }
-    }
-}
+        },
+    };
+};

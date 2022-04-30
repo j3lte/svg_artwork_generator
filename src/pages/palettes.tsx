@@ -6,7 +6,7 @@ import { AppFooter } from '@/components/AppFooter';
 import { PaletteChoice, paletteChoices } from '@/util/palette';
 import { observer } from 'mobx-react';
 import { useStoreContext } from '@/context/StoreContext';
-import { Flame, LayoutGrid, Lock } from 'tabler-icons-react';
+import { Flame, LayoutGrid } from 'tabler-icons-react';
 import { websiteTitle } from '@/util/seo';
 import { useRouter } from 'next/router';
 import { useCallback, useMemo } from 'react';
@@ -37,7 +37,7 @@ const PalettePage: NextPage = observer(() => {
                 padding={'sm'}
                 header={<AppHeader />}
                 footer={<AppFooter />}
-                styles={(theme) => ({
+                styles={() => ({
                     body: {
                         paddingTop: 70,
                         paddingBottom: 60,
@@ -51,7 +51,7 @@ const PalettePage: NextPage = observer(() => {
                         color="dark"
                         active={ui.activePaletteTab}
                         onTabChange={ui.setActivePaletteTab}
-                        styles={(theme) => ({
+                        styles={() => ({
                             root: {
                                 display: 'flex', flexDirection: 'column', flex: '1 1 auto'
                             },

@@ -1,4 +1,4 @@
-import { Checkbox, Group, InputWrapper, NumberInput } from "@mantine/core";
+import { Checkbox, InputWrapper } from "@mantine/core";
 import { useDebouncedCallback } from "beautiful-react-hooks";
 import { observer } from "mobx-react";
 import { CircleX } from "tabler-icons-react";

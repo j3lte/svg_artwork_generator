@@ -1,4 +1,9 @@
-import { XORShift, XORShift128, XORShift128Plus, XORShift64 } from "random-seedable";
+import {
+    XORShift,
+    XORShift128,
+    XORShift128Plus,
+    XORShift64,
+} from 'random-seedable';
 
 type RandomizerType = XORShift | XORShift64 | XORShift128 | XORShift128Plus;
 
@@ -6,14 +11,17 @@ export enum RandomizerID {
     TYPE32 = '32',
     TYPE64 = '64',
     TYPE128 = '128',
-    TYPE128PLUS = '128Plus'
+    TYPE128PLUS = '128Plus',
 }
 
 export class Randomizer {
     private randomizer: RandomizerType;
 
-    constructor(seed?: number | bigint, type: RandomizerID = RandomizerID.TYPE64) {
-        if (type === RandomizerID.TYPE64){
+    constructor(
+        seed?: number | bigint,
+        type: RandomizerID = RandomizerID.TYPE64
+    ) {
+        if (type === RandomizerID.TYPE64) {
             this.randomizer = new XORShift64(seed);
         } else if (type === RandomizerID.TYPE32) {
             this.randomizer = new XORShift(seed);
@@ -51,11 +59,12 @@ export class Randomizer {
     }
 
     coinFlips(chances: Array<number | null>): Array<boolean> {
-        return chances.map(chance => this.random.coin(chance === null ? 0.5 : chance));
+        return chances.map((chance) =>
+            this.random.coin(chance === null ? 0.5 : chance)
+        );
     }
 
     randRange(min: number, max: number) {
         return this.randomizer.randRange(min, max);
     }
-
 }
