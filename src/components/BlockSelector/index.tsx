@@ -1,8 +1,9 @@
-import { useStoreContext } from '@/context/StoreContext';
-import { flatLabelMapping, generatorKey } from '@/util/generators';
 import { CheckboxGroup, Checkbox, Text, Badge, Group } from '@mantine/core';
 import { observer } from 'mobx-react';
 import { useMemo } from 'react';
+
+import { flatLabelMapping, generatorKey } from '@/util/generators';
+import { useStoreContext } from '@/context/StoreContext';
 
 export const BlocksSelector = observer(() => {
     const store = useStoreContext();

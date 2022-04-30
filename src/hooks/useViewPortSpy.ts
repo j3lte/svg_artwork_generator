@@ -3,13 +3,13 @@
 // Copied from https://github.com/antonioru/beautiful-react-hooks/blob/master/src/useViewportSpy.ts
 // Supressing the errorMessage as it is annoying
 
-import { RefObject, useLayoutEffect, useState } from "react";
-import isClient from "beautiful-react-hooks/shared/isClient";
-import isApiSupported from "beautiful-react-hooks/shared/isAPISupported";
+import { RefObject, useLayoutEffect, useState } from 'react';
+import isClient from 'beautiful-react-hooks/shared/isClient';
+import isApiSupported from 'beautiful-react-hooks/shared/isAPISupported';
 
 const defaultOptions: IntersectionObserverInit = {
-  rootMargin: "0px",
-  threshold: 0,
+    rootMargin: '0px',
+    threshold: 0,
 };
 
 /**
@@ -17,33 +17,33 @@ const defaultOptions: IntersectionObserverInit = {
  * viewport.
  */
 const useViewportSpy = <T extends HTMLElement>(
-  elementRef: RefObject<T>,
-  options: IntersectionObserverInit = defaultOptions
+    elementRef: RefObject<T>,
+    options: IntersectionObserverInit = defaultOptions
 ) => {
-  if (!isClient || !isApiSupported("IntersectionObserver")) {
-    return null;
-  }
+    if (!isClient || !isApiSupported('IntersectionObserver')) {
+        return null;
+    }
 
-  const [isVisible, setIsVisible] = useState<boolean>();
+    const [isVisible, setIsVisible] = useState<boolean>();
 
-  useLayoutEffect(() => {
-    const observer = new window.IntersectionObserver(
-      (entries) =>
-        entries.forEach((item) => {
-          const nextValue = item.isIntersecting;
-          setIsVisible(nextValue);
-        }),
-      options
-    );
+    useLayoutEffect(() => {
+        const observer = new window.IntersectionObserver(
+            (entries) =>
+                entries.forEach((item) => {
+                    const nextValue = item.isIntersecting;
+                    setIsVisible(nextValue);
+                }),
+            options
+        );
 
-    observer.observe(elementRef.current as T);
+        observer.observe(elementRef.current as T);
 
-    return () => {
-      observer.disconnect();
-    };
-  }, [elementRef, options]);
+        return () => {
+            observer.disconnect();
+        };
+    }, [elementRef, options]);
 
-  return isVisible;
+    return isVisible;
 };
 
 export default useViewportSpy;

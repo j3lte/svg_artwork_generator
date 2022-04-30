@@ -5,6 +5,7 @@ import useSize from "@react-hook/size";
 import { useDebouncedCallback } from "beautiful-react-hooks";
 import { observer } from "mobx-react-lite";
 import { LinkedHTMLElement } from "@svgdotjs/svg.js";
+import { useMediaQuery } from "@mantine/hooks";
 
 import { useStoreContext } from "@/context/StoreContext";
 
@@ -12,7 +13,6 @@ import { createSvgDrawer, resizeDrawer } from "@/util/svg";
 import { generateBlocks } from "@/util/generator";
 import { savePNG, saveSVG } from "@/util/saveImage";
 import { useUIContext } from "@/context/UIContext";
-import { useMediaQuery } from "@mantine/hooks";
 
 const defaultButtomStyles = {
     root: {

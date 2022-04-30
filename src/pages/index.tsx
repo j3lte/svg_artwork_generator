@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
 import { AppShell, Container } from '@mantine/core'
+
 import { Renderer } from '@/components/Renderer'
 import { BottomDrawerMobile } from '@/components/BottomDrawerMobile'
 import { AppHeader } from '@/components/AppHeader'

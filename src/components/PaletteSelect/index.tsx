@@ -1,9 +1,10 @@
 import { ComponentPropsWithoutRef, forwardRef, useMemo } from "react";
 import { observer } from 'mobx-react'
 import { Group, Text, Select, Button } from '@mantine/core';
+import { ChevronDown, Lock, LockOpen, Refresh } from "tabler-icons-react";
+
 import { paletteChoices } from "@/util/palette";
 import { useStoreContext } from "@/context/StoreContext";
-import { ChevronDown, Lock, LockOpen, Refresh } from "tabler-icons-react";
 import { Randomizer } from "@/util/random";
 
 // const ColorGroup = ({ colors }: { colors: string[] }) => {

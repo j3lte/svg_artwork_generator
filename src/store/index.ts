@@ -1,11 +1,11 @@
 import { makeAutoObservable, toJS } from 'mobx';
 import { makePersistable, configurePersistable } from 'mobx-persist-store';
 import localForage from 'localforage';
+import { enableStaticRendering } from 'mobx-react';
 
 import { Randomizer } from '@/util/random';
 import { PaletteChoice, paletteChoices } from '@/util/palette';
 import { generatorKey } from '@/util/generators';
-import { enableStaticRendering } from 'mobx-react';
 import {
     Block,
     generateBlocksObjects,

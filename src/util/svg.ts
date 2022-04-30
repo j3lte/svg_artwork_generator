@@ -1,5 +1,6 @@
 import { SVG } from '@svgdotjs/svg.js';
 import type { Svg, LinkedHTMLElement } from '@svgdotjs/svg.js';
+
 import '@svgdotjs/svg.filter.js';
 import './panzoom';
 

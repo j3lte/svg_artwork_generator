@@ -1,10 +1,11 @@
 import { Accordion, Space, ThemeIcon, useAccordionState } from '@mantine/core';
-import { PaletteSelect } from '../PaletteSelect';
 import { AdjustmentsHorizontal, BoxModel2, Palette, TiltShift } from 'tabler-icons-react';
-import { SeedInput } from '../SeedInput';
-import { SizesInput } from '../SizesInput';
-import { BlocksSelector } from '../BlockSelector';
-import { Adjustments } from '../Adjustments';
+
+import { PaletteSelect } from '@/components/PaletteSelect';
+import { SeedInput } from '@/components/SeedInput';
+import { SizesInput } from '@/components/SizesInput';
+import { BlocksSelector } from '@/components/BlockSelector';
+import { Adjustments } from '@/components/Adjustments';
 
 export const Options = ({ multiple }: { multiple?: boolean }) => {
     // const { accordionState, setAccordionState } = useUIContext();

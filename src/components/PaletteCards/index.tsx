@@ -1,7 +1,8 @@
-import { PaletteChoice } from "@/util/palette";
 import { Card, Group, Box, Text, Badge } from "@mantine/core";
 import { useEffect, useRef, useState } from "react";
-import useViewportSpy from "src/hooks/useViewPortSpy";
+
+import { PaletteChoice } from "@/util/palette";
+import useViewportSpy from "@/hooks/useViewPortSpy";
 
 interface PaletteCardProps {
     palette: PaletteChoice;

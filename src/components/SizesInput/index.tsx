@@ -1,9 +1,9 @@
-import { useStoreContext } from "@/context/StoreContext";
 import { useDebouncedCallback } from "beautiful-react-hooks";
 import { observer } from "mobx-react";
 import { Refresh } from "tabler-icons-react";
 
-import { PlusMinusInput } from "../PlusMinusInput";
+import { PlusMinusInput } from "@/components/PlusMinusInput";
+import { useStoreContext } from "@/context/StoreContext";
 
 export const SizesInput = observer(() => {
     const store = useStoreContext();

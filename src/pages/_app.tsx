@@ -6,9 +6,9 @@ import { GoogleAnalytics, usePagesViews } from 'nextjs-google-analytics';
 
 import '@/styles/globals.css'
 
+import { ArtStore } from '@/store';
 import { StoreProvider } from '@/context/StoreContext';
 import { UIProvider } from '@/context/UIContext';
-import { ArtStore } from '../store';
 import { defaultSeo } from '@/util/seo';
 
 const mainArtStore = new ArtStore();

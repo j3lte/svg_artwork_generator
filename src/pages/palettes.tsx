@@ -1,15 +1,16 @@
 import type { NextPage } from 'next';
 import { AppShell, Container, Tabs, Title } from '@mantine/core';
 import { NextSeo } from 'next-seo';
+import { observer } from 'mobx-react';
+import { Flame, LayoutGrid } from 'tabler-icons-react';
+import { useRouter } from 'next/router';
+import { useCallback, useMemo } from 'react';
+
 import { AppHeader } from '@/components/AppHeader';
 import { AppFooter } from '@/components/AppFooter';
 import { PaletteChoice, paletteChoices } from '@/util/palette';
-import { observer } from 'mobx-react';
 import { useStoreContext } from '@/context/StoreContext';
-import { Flame, LayoutGrid } from 'tabler-icons-react';
 import { websiteTitle } from '@/util/seo';
-import { useRouter } from 'next/router';
-import { useCallback, useMemo } from 'react';
 import { useUIContext } from '@/context/UIContext';
 import { PaletteTabsContainer } from '@/components/PaletteTabsContainer';
 

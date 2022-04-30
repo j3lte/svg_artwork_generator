@@ -1,5 +1,5 @@
 import { createContext, FC, PropsWithChildren, useContext } from 'react';
-import { ArtStore } from '../store';
+import { ArtStore } from '@/store';
 
 // @ts-ignore: Context always empty on initialization
 const StoreContext = createContext<ArtStore>(null);
