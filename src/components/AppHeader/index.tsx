@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Header, Title, Image, Stack, Group, ThemeIcon, MediaQuery } from "@mantine/core"
+import { Header, Title, Image, Stack, Group, ThemeIcon, MediaQuery } from '@mantine/core'
 import { Book, Palette } from 'tabler-icons-react';
 
 export const AppHeader = () => {

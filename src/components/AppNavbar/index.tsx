@@ -1,6 +1,6 @@
-import { Navbar, ScrollArea } from "@mantine/core"
+import { Navbar, ScrollArea } from '@mantine/core'
 
-import { Options } from "@/components/Options"
+import { Options } from '@/components/Options'
 
 export const AppNavbar = () => {
     return (

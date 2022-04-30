@@ -27,7 +27,7 @@ configurePersistable(
     { delay: 200, fireImmediately: false }
 );
 
-export const AVAILABLE_CHARACTERS = `ABCDEFGHIJKLMNPRSTUVWXYZ&123456789`.split(
+export const AVAILABLE_CHARACTERS = 'ABCDEFGHIJKLMNPRSTUVWXYZ&123456789'.split(
     ''
 );
 

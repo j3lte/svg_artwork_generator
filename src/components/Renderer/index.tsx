@@ -1,18 +1,18 @@
-import { useEffect, useRef, useState } from "react";
-import { Affix, Button, Group, LoadingOverlay, Paper } from "@mantine/core";
-import { Download, Refresh, Viewfinder } from "tabler-icons-react";
-import useSize from "@react-hook/size";
-import { useDebouncedCallback } from "beautiful-react-hooks";
-import { observer } from "mobx-react-lite";
-import { LinkedHTMLElement } from "@svgdotjs/svg.js";
-import { useMediaQuery } from "@mantine/hooks";
+import { useEffect, useRef, useState } from 'react';
+import { Affix, Button, Group, LoadingOverlay, Paper } from '@mantine/core';
+import { Download, Refresh, Viewfinder } from 'tabler-icons-react';
+import useSize from '@react-hook/size';
+import { useDebouncedCallback } from 'beautiful-react-hooks';
+import { observer } from 'mobx-react-lite';
+import { LinkedHTMLElement } from '@svgdotjs/svg.js';
+import { useMediaQuery } from '@mantine/hooks';
 
-import { useStoreContext } from "@/context/StoreContext";
+import { useStoreContext } from '@/context/StoreContext';
 
-import { createSvgDrawer, resizeDrawer } from "@/util/svg";
-import { generateBlocks } from "@/util/generator";
-import { savePNG, saveSVG } from "@/util/saveImage";
-import { useUIContext } from "@/context/UIContext";
+import { createSvgDrawer, resizeDrawer } from '@/util/svg';
+import { generateBlocks } from '@/util/generator';
+import { savePNG, saveSVG } from '@/util/saveImage';
+import { useUIContext } from '@/context/UIContext';
 
 const defaultButtomStyles = {
     root: {
@@ -88,7 +88,7 @@ export const Renderer = observer(() => {
                         size={ xsScreen ? 'xs' : 'sm' }
                         disabled={store.lockedPalette && store.lockedSeed}
                         hidden={store.lockedPalette && store.lockedSeed}
-                        variant="outline" color={"dark"}
+                        variant="outline" color={'dark'}
                         leftIcon={<Refresh size={16} />}
                         styles={defaultButtomStyles}
                         onClick={() => {

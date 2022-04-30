@@ -1,10 +1,10 @@
-import { Checkbox, InputWrapper } from "@mantine/core";
-import { useDebouncedCallback } from "beautiful-react-hooks";
-import { observer } from "mobx-react";
-import { CircleX } from "tabler-icons-react";
+import { Checkbox, InputWrapper } from '@mantine/core';
+import { useDebouncedCallback } from 'beautiful-react-hooks';
+import { observer } from 'mobx-react';
+import { CircleX } from 'tabler-icons-react';
 
-import { PlusMinusInput } from "@/components/PlusMinusInput";
-import { useStoreContext } from "@/context/StoreContext";
+import { PlusMinusInput } from '@/components/PlusMinusInput';
+import { useStoreContext } from '@/context/StoreContext';
 
 export const Adjustments = observer(() => {
     const store = useStoreContext();

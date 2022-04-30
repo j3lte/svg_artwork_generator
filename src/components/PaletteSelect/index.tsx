@@ -1,11 +1,11 @@
-import { ComponentPropsWithoutRef, forwardRef, useMemo } from "react";
+import { ComponentPropsWithoutRef, forwardRef, useMemo } from 'react';
 import { observer } from 'mobx-react'
 import { Group, Text, Select, Button } from '@mantine/core';
-import { ChevronDown, Lock, LockOpen, Refresh } from "tabler-icons-react";
+import { ChevronDown, Lock, LockOpen, Refresh } from 'tabler-icons-react';
 
-import { paletteChoices } from "@/util/palette";
-import { useStoreContext } from "@/context/StoreContext";
-import { Randomizer } from "@/util/random";
+import { paletteChoices } from '@/util/palette';
+import { useStoreContext } from '@/context/StoreContext';
+import { Randomizer } from '@/util/random';
 
 // const ColorGroup = ({ colors }: { colors: string[] }) => {
 //     const colorArray = (new Array(5)).fill(null).map((c, i) => colors[i] ? colors[i] : null);
@@ -27,7 +27,7 @@ const SelectPalette = forwardRef<HTMLDivElement, PaletteItemProps>(
         <div ref={ref} {...others}>
             <Group noWrap>
                 {/* <ColorGroup colors={colors} /> */}
-                <Text size={'xs'} sx={{ textOverflow: 'ellipsis', whiteSpace: "nowrap", overflow: 'hidden' }}>{label}</Text>
+                <Text size={'xs'} sx={{ textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden' }}>{label}</Text>
             </Group>
         </div>
     )
@@ -50,7 +50,7 @@ export const PaletteSelect = observer(() => {
     }
 
     return (
-        <Group noWrap align={"end"}>
+        <Group noWrap align={'end'}>
             <Select
                 label="Select palette"
                 placeholder="Pick one"

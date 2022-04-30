@@ -1,6 +1,6 @@
-import { NumberInputHandlers, InputWrapper, Group, Button, NumberInput } from "@mantine/core";
-import { ReactNode, useRef } from "react";
-import { Minus, Plus } from "tabler-icons-react";
+import { NumberInputHandlers, InputWrapper, Group, Button, NumberInput } from '@mantine/core';
+import { ReactNode, useRef } from 'react';
+import { Minus, Plus } from 'tabler-icons-react';
 
 interface PlusMinusInputProps {
     inputID: string;

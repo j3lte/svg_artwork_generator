@@ -1,13 +1,13 @@
-import { ScrollArea, SimpleGrid, Container } from "@mantine/core";
-import { useMediaQuery } from "@mantine/hooks";
-import useSize from "@react-hook/size";
-import { useDebouncedCallback } from "beautiful-react-hooks";
-import { FC, PropsWithChildren, useRef, useMemo, useEffect, useState } from "react";
-import { useSwipeable } from "react-swipeable";
+import { ScrollArea, SimpleGrid, Container } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
+import useSize from '@react-hook/size';
+import { useDebouncedCallback } from 'beautiful-react-hooks';
+import { FC, PropsWithChildren, useRef, useMemo, useEffect, useState } from 'react';
+import { useSwipeable } from 'react-swipeable';
 
-import { PaletteCard } from "@/components/PaletteCards";
-import { PaletteChoice } from "@/util/palette";
-import { useUIContext, XYCoordinate } from "@/context/UIContext";
+import { PaletteCard } from '@/components/PaletteCards';
+import { PaletteChoice } from '@/util/palette';
+import { useUIContext, XYCoordinate } from '@/context/UIContext';
 
 interface PaletteTabsContainerProps {
     palettes: PaletteChoice[];

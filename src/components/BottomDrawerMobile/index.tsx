@@ -1,10 +1,10 @@
-import { Drawer, ScrollArea, Affix, MediaQuery, Button, Group, ThemeIcon, Box } from "@mantine/core"
-import { useMediaQuery } from "@mantine/hooks"
-import Link from "next/link"
-import { ArrowDown, Palette, Settings } from "tabler-icons-react"
+import { Drawer, ScrollArea, Affix, MediaQuery, Button, Group, ThemeIcon, Box } from '@mantine/core'
+import { useMediaQuery } from '@mantine/hooks'
+import Link from 'next/link'
+import { ArrowDown, Palette, Settings } from 'tabler-icons-react'
 
-import { Options } from "@/components/Options"
-import { useUIContext } from "@/context/UIContext"
+import { Options } from '@/components/Options'
+import { useUIContext } from '@/context/UIContext'
 
 export const BottomDrawerMobile = () => {
     const { drawerOpened, setDrawerOpened } = useUIContext();
@@ -19,7 +19,7 @@ export const BottomDrawerMobile = () => {
                 size="50%"
                 position='bottom'
             >
-                <ScrollArea sx={() => ({ height: `100%`, paddingBottom: 50 })}>
+                <ScrollArea sx={() => ({ height: '100%', paddingBottom: 50 })}>
                     <Options  />
                     <Box>
                         <Group

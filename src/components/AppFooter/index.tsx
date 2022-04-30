@@ -1,5 +1,5 @@
-import { Box, Footer, Text } from "@mantine/core";
-import { Copyright } from "tabler-icons-react";
+import { Box, Footer, Text } from '@mantine/core';
+import { Copyright } from 'tabler-icons-react';
 
 export const AppFooter = ({ hideCopy }: { hideCopy?: boolean }) => (
     <Footer height={60} p="xs" fixed position={{ bottom: 0, left: 0, right: 0 }}>

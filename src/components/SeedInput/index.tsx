@@ -1,11 +1,11 @@
-import { Button, Group, NumberInput } from "@mantine/core";
-import { useDebouncedCallback } from "beautiful-react-hooks";
-import { observer } from "mobx-react";
-import { useMemo } from "react";
-import { Lock, LockOpen, Refresh } from "tabler-icons-react";
+import { Button, Group, NumberInput } from '@mantine/core';
+import { useDebouncedCallback } from 'beautiful-react-hooks';
+import { observer } from 'mobx-react';
+import { useMemo } from 'react';
+import { Lock, LockOpen, Refresh } from 'tabler-icons-react';
 
-import { Randomizer } from "@/util/random";
-import { useStoreContext } from "@/context/StoreContext";
+import { Randomizer } from '@/util/random';
+import { useStoreContext } from '@/context/StoreContext';
 
 export const SeedInput = observer(() => {
     const store = useStoreContext();
@@ -25,7 +25,7 @@ export const SeedInput = observer(() => {
     }
 
     return (
-        <Group noWrap align={"end"}>
+        <Group noWrap align={'end'}>
             <NumberInput
                 size="sm"
                 hideControls

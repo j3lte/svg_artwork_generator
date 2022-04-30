@@ -17,7 +17,7 @@ export const generator: CreatorFunc = (drawer, block) => {
     // Draw Foreground
     const heart = heartGroup
         .path(
-            `M0 200 v-200 h200 a100,100 90 0,1 0,200 a100,100 90 0,1 -200,0 z`
+            'M0 200 v-200 h200 a100,100 90 0,1 0,200 a100,100 90 0,1 -200,0 z'
         )
         .center(x + size / 2, y + size / 2)
         .dy(-(size / 8))
