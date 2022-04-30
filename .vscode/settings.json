@@ -1,11 +1,11 @@
 {
     "editor.tabSize": 4,
     "editor.detectIndentation": false,
-    "[css]": {
-        "editor.tabSize": 4
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
     },
     "[typescript]": {
-        "editor.tabSize": 4,
+        "editor.formatOnSave": true,
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
 }
