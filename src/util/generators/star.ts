@@ -1,4 +1,3 @@
-import { G } from '@svgdotjs/svg.js';
 import { CreatorFunc, drawRect, generateXYCoords, getGroup } from './common';
 
 /**

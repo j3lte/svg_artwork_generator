@@ -35,7 +35,7 @@ export const Renderer = observer(() => {
     const {blocks, viewBox, generators, size, ready, filters, paletteColors} = store;
     const [width, height] = useSize(elRef, { initialWidth: 100, initialHeight: 100 });
 
-    const fixWidthSvg = useDebouncedCallback((width: number, height: number) => {
+    const fixWidthSvg = useDebouncedCallback(() => {
         if (elRef.current) {
             // resizeDrawer(elRef.current, width, height, 32);
             resizeDrawer(elRef.current);
@@ -62,7 +62,7 @@ export const Renderer = observer(() => {
 
     useEffect(() => {
         if (width !== 0 && height !== 0) {
-            fixWidthSvg(width, height);
+            fixWidthSvg();
         }
     }, [width, height, fixWidthSvg]);
 
