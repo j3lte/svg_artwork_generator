@@ -3,11 +3,13 @@ import { CreatorFunc } from './common';
 import * as empty from './empty';
 import * as circle from './circle';
 import * as triangle from './triangle';
-// import * as heart from './heart';
 import * as cross from './cross';
+import * as heart from './heart2';
+import * as heartline from './heart2line';
 import * as diagonal from './diagonal';
 import * as dots from './roundedDots';
 import * as squareDots from './squareDots';
+import * as star from './star';
 import * as halfSquare from './halfSquare';
 import * as letter from './letter';
 import * as oppositeCircles from './oppositeCircles';
@@ -19,7 +21,9 @@ export type generatorKey =
     | typeof empty.ID
     | typeof circle.ID
     | typeof triangle.ID
-    // | typeof heart.ID
+    | typeof heart.ID
+    | typeof heartline.ID
+    | typeof star.ID
     | typeof cross.ID
     | typeof diagonal.ID
     | typeof dots.ID
@@ -35,7 +39,9 @@ export const generatorMappings: { [key in generatorKey]: CreatorFunc } = {
     diag: diagonal.generator,
     circle: circle.generator,
     triangle: triangle.generator,
-    // 'heart'  : heart.generator,
+    star: star.generator,
+    heart: heart.generator,
+    heartline: heartline.generator,
     quart: quarterCircle.generator,
     dots: dots.generator,
     sqdots: squareDots.generator,
@@ -56,7 +62,10 @@ export const flatLabelMapping: Array<{
     { value: 'half', group: 1, type: '2C', label: 'Half Square' },
     { value: 'diag', group: 1, type: '2C', label: 'Diagonal' },
 
+    { value: 'star', group: 2, type: '2C', label: 'Star' },
     { value: 'triangle', group: 2, type: '2C', label: 'Triangle' },
+    { value: 'heart', group: 2, type: '2C', label: 'Heart' },
+    { value: 'heartline', group: 2, type: '2C', label: 'Heart (Open)' },
 
     { value: 'circle', group: 3, type: '2C', label: 'Circle' },
     { value: 'quart', group: 3, type: '2C', label: 'Quarter Circle' },
